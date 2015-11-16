@@ -13,6 +13,9 @@ namespace ReeDirectory
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
+            routes.MapRoute("CountriesList", "Home/Countries/List", new { Controller = "Country", Action = "Lists" });
+            routes.MapRoute("StatesList", "Home/states/List/{countryId}", new { Controller = "State", Action = "Lists", countryId = -1 });
+
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
