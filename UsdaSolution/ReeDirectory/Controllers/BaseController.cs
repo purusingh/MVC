@@ -11,7 +11,7 @@ namespace ReeDirectory.Controllers
     public abstract class BaseController<T, E> : Controller where E: EBase, new() where T : Base<E>, new()
     {        
         public ActionResult Index()
-        {
+        {            
             T model = new T();
             model.CurrentPage = 1;
             model.SortByName = "Id";

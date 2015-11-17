@@ -127,6 +127,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ActionFilters\ReeAuthorizeAttribute.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
@@ -139,10 +140,21 @@
     <Compile Include="EntityFM\EMaps\MCity.cs" />
     <Compile Include="EntityFM\EMaps\MCountry.cs" />
     <Compile Include="EntityFM\EMaps\MState.cs" />
+    <Compile Include="EntityFM\EMaps\Security\MController.cs" />
+    <Compile Include="EntityFM\EMaps\Security\MRole.cs" />
+    <Compile Include="EntityFM\EMaps\Security\MRoleController.cs" />
+    <Compile Include="EntityFM\EMaps\Security\MRoleUser.cs" />
+    <Compile Include="EntityFM\EMaps\Security\MUser.cs" />
     <Compile Include="EntityFM\Entities\EBase.cs" />
     <Compile Include="EntityFM\Entities\ECity.cs" />
     <Compile Include="EntityFM\Entities\ECountry.cs" />
     <Compile Include="EntityFM\Entities\EState.cs" />
+    <Compile Include="EntityFM\Entities\Security\EController.cs" />
+    <Compile Include="EntityFM\Entities\Security\ERole.cs" />
+    <Compile Include="EntityFM\Entities\Security\ERoleController.cs" />
+    <Compile Include="EntityFM\Entities\Security\EUser.cs" />
+    <Compile Include="EntityFM\Entities\Security\ERoleUser.cs" />
+    <Compile Include="EntityFM\ExternalEntity\CompositKey.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
