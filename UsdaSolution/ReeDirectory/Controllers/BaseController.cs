@@ -62,8 +62,8 @@ namespace ReeDirectory.Controllers
         [HttpPost]
         public ActionResult Create(E entity)
         {
-            if (ModelState.IsValid)
-            {
+            //if (ModelState.IsValid)
+           // {
                 try
                 {
                     ReeDbContext db = new ReeDbContext();
@@ -77,7 +77,8 @@ namespace ReeDirectory.Controllers
                 {
                     ModelState.AddModelError("Duplicate", "Duplicate entry.");
                 }
-            }
+            //}
+            PreCreate();
             return View();
         }
 
