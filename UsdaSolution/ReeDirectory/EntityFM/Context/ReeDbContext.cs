@@ -4,6 +4,7 @@ using System.Data.Entity.ModelConfiguration.Conventions;
 using ReeDirectory.EntityFM.EMaps;
 using ReeDirectory.EntityFM.EMaps.Security;
 using ReeDirectory.EntityFM.Entities;
+using ReeDirectory.EntityFM.Entities.Security;
 
 namespace ReeDirectory.EntityFM.Context
 {
@@ -11,7 +12,7 @@ namespace ReeDirectory.EntityFM.Context
     {
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            //base.OnModelCreating(modelBuilder);
+            Database.SetInitializer<ReeDbContext>(null);
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
             modelBuilder.Conventions.Remove<OneToManyCascadeDeleteConvention>();
 
@@ -32,5 +33,12 @@ namespace ReeDirectory.EntityFM.Context
         public DbSet<ECountry> Countries { get; set; }
         public DbSet<EState> States { get; set; }
         public DbSet<ECity> Cities { get; set; }
+
+        public DbSet<EUser> Users { get; set; }
+        public DbSet<ERole> Roles { get; set; }
+        public DbSet<ERoleUser> RoleUsers { get; set; }
+
+        public DbSet<EController> Controllers { get; set; }
+        public DbSet<ERoleController> RoleControllers { get; set; }
     }
 }

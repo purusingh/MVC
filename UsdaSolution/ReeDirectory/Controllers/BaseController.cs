@@ -6,14 +6,49 @@ using ReeDirectory.EntityFM.Context;
 using System.Linq.Dynamic;
 using System.Data.Entity;
 using ReeDirectory.ActionFilters;
+using ReeDirectory.EntityFM.Entities.Security;
+using System.Collections.Generic;
+using ReeDirectory.EntityFM.ExternalEntity;
+using System.Data.SqlClient;
 
 namespace ReeDirectory.Controllers
 {
     public abstract class BaseController<T, E> : Controller where E: EBase, new() where T : Base<E>, new()
-    {        
+    {
+        #region fields
+        protected ReeDbContext db;
+        #endregion fileds
+
+        #region Constructors
+        public BaseController()
+        {
+            db = new ReeDbContext();
+        }
+        public BaseController(ReeDbContext db)
+        {
+            this.db = db;            
+        }
+
+        #endregion Constructors
+
+        #region Security
+        private ESecurity security;
+        protected ESecurity Security
+        {
+            get
+            {
+                if (security == null)
+                    security = db.Database.SqlQuery<ESecurity>("[dbo].[PrPermission] @controllerName, @login", new SqlParameter("controllerName", this.GetType().Name), new SqlParameter("login", HttpContext.User.Identity.Name)).FirstOrDefault();
+                return security;
+            }
+        }
+        #endregion security
+
+        #region ActionMethods
         [ReeAuthorizeAttribute]
         public ActionResult Index()
-        {            
+        {
+            ESecurity eSecurity = Security;
             T model = new T();
             model.CurrentPage = 1;
             model.SortByName = "Id";
@@ -24,7 +59,6 @@ namespace ReeDirectory.Controllers
         [HttpPost]
         public ActionResult Sort(T model)
         {
-            ReeDbContext db = new ReeDbContext();
             IQueryable<E> queriable = db.Set<E>();
 
             if(!string.IsNullOrEmpty(model.FilterByValue))
@@ -56,7 +90,6 @@ namespace ReeDirectory.Controllers
             {
                 try
                 {
-                    ReeDbContext db = new ReeDbContext();
                     db.Entry<E>(model).State = EntityState.Added;
                     db.SaveChanges();
                     return RedirectToAction("Index");
@@ -74,7 +107,6 @@ namespace ReeDirectory.Controllers
         {
             try
             {
-                ReeDbContext db = new ReeDbContext();
                 E entity = db.Set<E>().FirstOrDefault(e => e.Id == iD);
                 db.Set<E>().Remove(entity);
                 db.SaveChanges();
@@ -91,7 +123,6 @@ namespace ReeDirectory.Controllers
         {
             try
             {
-                ReeDbContext db = new ReeDbContext();
                 E entity = db.Set<E>().FirstOrDefault(ent => ent.Id == iD);
                 db.Entry<E>(entity).State = EntityState.Deleted;
                 db.SaveChanges();
@@ -109,7 +140,6 @@ namespace ReeDirectory.Controllers
         {
             try
             {
-                ReeDbContext db = new ReeDbContext();
                 E entity = db.Set<E>().FirstOrDefault(e => e.Id == iD);
                 return View(entity);
             }
@@ -126,7 +156,6 @@ namespace ReeDirectory.Controllers
             {
                 try
                 {
-                    ReeDbContext db = new ReeDbContext();
                     E entity = new E();
                     UpdateModel(entity);
                     db.Entry<E>(entity).State = EntityState.Modified;
@@ -140,6 +169,7 @@ namespace ReeDirectory.Controllers
             }
 
             return View();
-        }        
+        }
+        #endregion Actionmethods
     }
 }
