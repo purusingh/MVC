@@ -7,6 +7,6 @@ namespace ReeDirectory.EntityFM.Entities
     public abstract class EBase
     {
         [Key]
-        public int Id { get; set; }
+        public int? Id { get; set; }
     }
 }

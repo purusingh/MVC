@@ -18,5 +18,18 @@ namespace ReeDirectory.Controllers
                 return Json(new SelectList(entities, "Id", "Name"), JsonRequestBehavior.AllowGet);
             return View(entities);
         }
+
+        protected override void PreCreate()
+        {
+            ReeDbContext db = new ReeDbContext();
+            ViewBag.Countries = new SelectList(db.Countries.ToList(), "Id", "Name");
+        }
+
+        
+        protected override void PreCreate(ReeDbContext db, EState model)
+        {
+            model.Country = db.Countries.FirstOrDefault(e=>e.Id == model.Country.Id);
+        }
+        
     }
 }

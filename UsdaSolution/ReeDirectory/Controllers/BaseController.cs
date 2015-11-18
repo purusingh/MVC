@@ -9,7 +9,8 @@ using System.Data.Entity;
 namespace ReeDirectory.Controllers
 {
     public abstract class BaseController<T, E> : Controller where E: EBase, new() where T : Base<E>, new()
-    {        
+    {
+
         public ActionResult Index()
         {            
             T model = new T();
@@ -41,21 +42,34 @@ namespace ReeDirectory.Controllers
             return View("Index",model);
         }
 
+
+        protected virtual void PreCreate()
+        {
+        }
+
         [HttpGet]
         public ActionResult Create()
         {
+            PreCreate();
             return View();
         }
 
+
+        protected virtual void PreCreate(ReeDbContext db,E entity)
+        { 
+        }
+
         [HttpPost]
-        public ActionResult Create(E model)
+        public ActionResult Create(E entity)
         {
             if (ModelState.IsValid)
             {
                 try
                 {
                     ReeDbContext db = new ReeDbContext();
-                    db.Entry<E>(model).State = EntityState.Added;
+                    PreCreate(db, entity);
+                    db.Entry<E>(entity).State = EntityState.Added;
+                    
                     db.SaveChanges();
                     return RedirectToAction("Index");
                 }
