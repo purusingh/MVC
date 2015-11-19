@@ -13,7 +13,9 @@ using System.Data.SqlClient;
 
 namespace ReeDirectory.Controllers
 {
-    public abstract class BaseController<T, E> : Controller where E: EBase, new() where T : Base<E>, new()
+    public abstract class BaseController<T, E> : Controller
+        where E : EBase, new()
+        where T : Base<E>, new()
     {
         #region fields
         protected ReeDbContext db;
@@ -26,7 +28,7 @@ namespace ReeDirectory.Controllers
         }
         public BaseController(ReeDbContext db)
         {
-            this.db = db;            
+            this.db = db;
         }
 
         #endregion Constructors
@@ -61,8 +63,8 @@ namespace ReeDirectory.Controllers
         {
             IQueryable<E> queriable = db.Set<E>();
 
-            if(!string.IsNullOrEmpty(model.FilterByValue))
-                queriable= queriable.Where(string.Format("{0}.Contains(@0)", model.FilterBy), model.FilterByValue);
+            if (!string.IsNullOrEmpty(model.FilterByValue))
+                queriable = queriable.Where(string.Format("{0}.Contains(@0)", model.FilterBy), model.FilterByValue);
 
             model.TotolRecords = queriable.Count();
 
@@ -73,8 +75,8 @@ namespace ReeDirectory.Controllers
                 model.CurrentPage = 1;
 
             model.Entities = queriable.Skip(model.CurrentPage * model.NoOfRecord - model.NoOfRecord).Take(model.NoOfRecord).ToList();
-
-            return View("Index",model);
+            ViewBag.Security = Security;
+            return View("Index", model);
         }
 
         [HttpGet]
@@ -112,7 +114,7 @@ namespace ReeDirectory.Controllers
                 db.SaveChanges();
             }
             catch
-            { 
+            {
             }
 
             return RedirectToAction("Index");
