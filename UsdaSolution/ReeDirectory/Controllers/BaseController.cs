@@ -42,6 +42,8 @@ namespace ReeDirectory.Controllers
             {
                 if (security == null)
                     security = db.Database.SqlQuery<ESecurity>("[dbo].[PrPermission] @controllerName, @login", new SqlParameter("controllerName", this.GetType().Name), new SqlParameter("login", HttpContext.User.Identity.Name)).FirstOrDefault();
+                //if (security == null)
+                    //security = new ESecurity { Add = 0, Edit = 0, Delete = 0, Print = 0 };
                 return security;
             }
         }

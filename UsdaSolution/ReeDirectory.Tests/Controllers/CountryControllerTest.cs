@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Configuration;
 using System.Web.Mvc;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
-using ReeDirectory;
 using ReeDirectory.Controllers;
 using ReeDirectory.EntityFM.ExternalEntity;
 
@@ -14,12 +10,14 @@ namespace ReeDirectory.Tests.Controllers
     [TestClass]
     public class CountryControllerTest
     {
+        readonly string user = ConfigurationManager.AppSettings["User"].ToString();
+
         [TestMethod]
         public void IndexTest0()
         {
             // Arrange
             var  mock = new Mock<ControllerContext>();
-            mock.SetupGet(x => x.HttpContext.User.Identity.Name).Returns("USDA\\Purushottam.Singh");
+            mock.SetupGet(x => x.HttpContext.User.Identity.Name).Returns(user);
             mock.SetupGet(x => x.HttpContext.Request.IsAuthenticated).Returns(true);
                 
             CountryController controller = new CountryController();
@@ -36,7 +34,7 @@ namespace ReeDirectory.Tests.Controllers
         {
             // Arrange
             var mock = new Mock<ControllerContext>();
-            mock.SetupGet(x => x.HttpContext.User.Identity.Name).Returns("USDA\\Purushottam.Singh");
+            mock.SetupGet(x => x.HttpContext.User.Identity.Name).Returns(user);
             mock.SetupGet(x => x.HttpContext.Request.IsAuthenticated).Returns(true);
 
             CountryController controller = new CountryController();
@@ -54,7 +52,7 @@ namespace ReeDirectory.Tests.Controllers
         {
             // Arrange
             var mock = new Mock<ControllerContext>();
-            mock.SetupGet(x => x.HttpContext.User.Identity.Name).Returns("USDA\\Purushottam.Singh");
+            mock.SetupGet(x => x.HttpContext.User.Identity.Name).Returns(user);
             mock.SetupGet(x => x.HttpContext.Request.IsAuthenticated).Returns(true);
 
             CountryController controller = new CountryController();
