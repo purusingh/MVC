@@ -15,13 +15,30 @@ namespace ReeDirectory.Tests.Controllers
     public class CountryControllerTest
     {
         [TestMethod]
-        public void IndexTest1()
+        public void IndexTest0()
         {
             // Arrange
             var  mock = new Mock<ControllerContext>();
             mock.SetupGet(x => x.HttpContext.User.Identity.Name).Returns("USDA\\Purushottam.Singh");
             mock.SetupGet(x => x.HttpContext.Request.IsAuthenticated).Returns(true);
                 
+            CountryController controller = new CountryController();
+
+            controller.ControllerContext = mock.Object;
+            // Act
+            ViewResult result = controller.Index() as ViewResult;
+
+            // Assert
+            //Assert.(result);
+        }
+
+        public void IndexTest1()
+        {
+            // Arrange
+            var mock = new Mock<ControllerContext>();
+            mock.SetupGet(x => x.HttpContext.User.Identity.Name).Returns("USDA\\Purushottam.Singh");
+            mock.SetupGet(x => x.HttpContext.Request.IsAuthenticated).Returns(true);
+
             CountryController controller = new CountryController();
 
             controller.ControllerContext = mock.Object;
