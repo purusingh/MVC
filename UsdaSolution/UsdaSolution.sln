@@ -5,7 +5,7 @@ VisualStudioVersion = 12.0.31101.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReeDirectory", "ReeDirectory\ReeDirectory.csproj", "{A2B41770-06F7-4B67-B7CC-95D2ADBE1902}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReeDirectoryTest", "ReeDirectoryTest\ReeDirectoryTest.csproj", "{490E8231-FBE9-4021-89D2-FBAB30FEBF15}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReeDirectory.Tests", "ReeDirectory.Tests\ReeDirectory.Tests.csproj", "{372EAF89-6026-4435-AE11-ABAA4E5D3770}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,10 +17,10 @@ Global
 		{A2B41770-06F7-4B67-B7CC-95D2ADBE1902}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A2B41770-06F7-4B67-B7CC-95D2ADBE1902}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A2B41770-06F7-4B67-B7CC-95D2ADBE1902}.Release|Any CPU.Build.0 = Release|Any CPU
-		{490E8231-FBE9-4021-89D2-FBAB30FEBF15}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{490E8231-FBE9-4021-89D2-FBAB30FEBF15}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{490E8231-FBE9-4021-89D2-FBAB30FEBF15}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{490E8231-FBE9-4021-89D2-FBAB30FEBF15}.Release|Any CPU.Build.0 = Release|Any CPU
+		{372EAF89-6026-4435-AE11-ABAA4E5D3770}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{372EAF89-6026-4435-AE11-ABAA4E5D3770}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{372EAF89-6026-4435-AE11-ABAA4E5D3770}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{372EAF89-6026-4435-AE11-ABAA4E5D3770}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -62,7 +62,6 @@ namespace ReeDirectory.Controllers
         [ReeAuthorizeAttribute]
         public ActionResult Index()
         {
-            ESecurity eSecurity = Security;
             T model = new T();
             model.CurrentPage = 1;
             model.SortByName = "Id";
