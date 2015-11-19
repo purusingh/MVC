@@ -63,9 +63,10 @@ namespace ReeDirectory.Tests.Controllers
             // Act
             ViewResult result = controller.Index() as ViewResult;
 
-            // Assert
+            // Assert            
             ESecurity actual =result.ViewData["Security"] as ESecurity;
-            ESecurity mustBe =new ESecurity { Add = 1, Edit = 1, Delete = 0, Print = 1 }; 
+            ESecurity mustBe =new ESecurity { Add = 1, Edit = 1, Delete = 0, Print = 1 };
+            Assert.IsNotNull(actual, "Controller Permission is not set yet");
             Assert.AreEqual(actual.Add,mustBe.Add, "Add is not correct");
             Assert.AreEqual(actual.Edit, mustBe.Edit, "Edit is not correct");
             Assert.AreEqual(actual.Delete, mustBe.Delete, "Delete is not correct");
