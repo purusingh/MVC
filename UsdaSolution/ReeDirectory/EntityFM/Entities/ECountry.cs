@@ -5,11 +5,11 @@ namespace ReeDirectory.EntityFM.Entities
 {
     public class ECountry : EBase
     {
-        [Required(ErrorMessage = "Abbrivation is required.")]
+        [Required(ErrorMessage = "Abbrivation1 is required.")]
         [Display(Name = "Abbrivation")]
         public string Abbrivation { get; set; }
 
-        [Required(ErrorMessage="Name is required.")]
+        [Required(ErrorMessage="Name1 is required.")]
         [Display(Name="Name")]
         public string Name { get; set; }
 

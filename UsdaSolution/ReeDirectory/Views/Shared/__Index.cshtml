@@ -1,0 +1,28 @@
+﻿
+@{
+    ViewBag.Title = "__Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section scripts
+{
+    <script type="text/javascript">
+        function SetSort(fld) {
+            var fldName = document.getElementById("SortByName");
+            var fldOper = document.getElementById("SortByOperation");
+            if (fldName.value == fld.innerText) {
+                if (fldOper.value == "Asc")
+                    fldOper.value = "Desc";
+                else
+                    fldOper.value = "Asc";
+            }
+            else {
+                fldOper.value = "Asc";
+            }
+            fldName.value = fld.innerText;
+            document.forms[0].submit();
+        }
+    </script>
+}
+
+@RenderBody()

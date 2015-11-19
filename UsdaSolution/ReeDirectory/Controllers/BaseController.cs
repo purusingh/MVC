@@ -10,6 +10,7 @@ using ReeDirectory.EntityFM.Entities.Security;
 using System.Collections.Generic;
 using ReeDirectory.EntityFM.ExternalEntity;
 using System.Data.SqlClient;
+using System.Data.Entity.Validation;
 
 namespace ReeDirectory.Controllers
 {
@@ -28,7 +29,7 @@ namespace ReeDirectory.Controllers
         }
         public BaseController(ReeDbContext db)
         {
-            this.db = db;            
+            this.db = db;
         }
 
         #endregion Constructors
@@ -46,6 +47,17 @@ namespace ReeDirectory.Controllers
         }
         #endregion security
 
+
+        #region VirtualMethods
+        protected virtual void PreCreate()
+        {
+        }
+
+        protected virtual void PreCreate(E model)
+        {
+        }
+        #endregion Virtualmethods
+
         #region ActionMethods
         [ReeAuthorizeAttribute]
         public ActionResult Index()
@@ -56,12 +68,7 @@ namespace ReeDirectory.Controllers
             model.SortByName = "Id";
             model.SortByOperation = "Desc";
             return Sort(model);
-        }
-
-
-        protected virtual void PreCreate()
-        {
-        }
+        }        
 
         [HttpPost]
         public ActionResult Sort(T model)
@@ -69,7 +76,7 @@ namespace ReeDirectory.Controllers
             IQueryable<E> queriable = db.Set<E>();
 
             if (!string.IsNullOrEmpty(model.FilterByValue))
-                queriable = queriable.Where(string.Format("{0}.Contains(@0)", model.FilterBy), model.FilterByValue);
+                queriable = queriable.Where(string.Format("{0}.ToString().StartsWith(@0)", model.FilterBy), model.FilterByValue);
 
             model.TotolRecords = queriable.Count();
 
@@ -89,27 +96,26 @@ namespace ReeDirectory.Controllers
         {
             PreCreate();
             return View();
-        }
-
-        protected virtual void PreCreate(E model)
-        { 
-        }
+        }        
 
         [HttpPost]
         public ActionResult Create(E model)
         {
-            if (ModelState.IsValid)
+            try
             {
-                try
+                PreCreate(model);
+                db.Entry<E>(model).State = EntityState.Added;
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            catch (DbEntityValidationException ex)
+            {
+                foreach (DbEntityValidationResult result in ex.EntityValidationErrors)
                 {
-                    db.Entry<E>(model).State = EntityState.Added;
-                    PreCreate(model);
-                    db.SaveChanges();
-                    return RedirectToAction("Index");
-                }
-                catch
-                {
-                    ModelState.AddModelError("Duplicate", "Duplicate entry.");
+                    foreach (DbValidationError error in result.ValidationErrors)
+                    {
+                        ModelState.AddModelError(error.PropertyName, error.ErrorMessage);
+                    }
                 }
             }
             PreCreate();
@@ -126,7 +132,7 @@ namespace ReeDirectory.Controllers
                 db.SaveChanges();
             }
             catch
-            { 
+            {
             }
 
             return RedirectToAction("Index");

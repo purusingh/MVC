@@ -27,6 +27,7 @@ namespace ReeDirectory.Models
 
         public string FilterBy { get; set; }
         public string FilterByValue { get; set; }
+
         virtual public SelectList FilterColumns {
             get
             {

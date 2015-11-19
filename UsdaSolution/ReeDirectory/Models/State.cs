@@ -1,10 +1,25 @@
-﻿using ReeDirectory.EntityFM.Entities;
+﻿using System.Web.Mvc;
+using ReeDirectory.EntityFM.Entities;
+using ReeDirectory.Models.Filter;
 
 
 namespace ReeDirectory.Models
 {
     public class State : Base<EState>
     {
+
+        override public SelectList FilterColumns
+        {
+            get
+            {
+                FilterItems items = new FilterItems();
+                items.Add(new FilterItem { Name = "Id", EntityPath = "Id" });
+                items.Add(new FilterItem { Name = "Name", EntityPath = "Name" });
+                items.Add(new FilterItem { Name = "Country", EntityPath = "Country.Name" });
+
+                return new SelectList(items, "EntityPath", "Name", FilterBy);
+            }
+        }
         
     }
 }
