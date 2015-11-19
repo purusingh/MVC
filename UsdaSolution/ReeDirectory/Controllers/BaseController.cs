@@ -28,7 +28,7 @@ namespace ReeDirectory.Controllers
         }
         public BaseController(ReeDbContext db)
         {
-            this.db = db;
+            this.db = db;            
         }
 
         #endregion Constructors
@@ -58,6 +58,11 @@ namespace ReeDirectory.Controllers
             return Sort(model);
         }
 
+
+        protected virtual void PreCreate()
+        {
+        }
+
         [HttpPost]
         public ActionResult Sort(T model)
         {
@@ -82,7 +87,12 @@ namespace ReeDirectory.Controllers
         [HttpGet]
         public ActionResult Create()
         {
+            PreCreate();
             return View();
+        }
+
+        protected virtual void PreCreate(E model)
+        { 
         }
 
         [HttpPost]
@@ -93,6 +103,7 @@ namespace ReeDirectory.Controllers
                 try
                 {
                     db.Entry<E>(model).State = EntityState.Added;
+                    PreCreate(model);
                     db.SaveChanges();
                     return RedirectToAction("Index");
                 }
@@ -101,6 +112,7 @@ namespace ReeDirectory.Controllers
                     ModelState.AddModelError("Duplicate", "Duplicate entry.");
                 }
             }
+            PreCreate();
             return View();
         }
 
@@ -114,7 +126,7 @@ namespace ReeDirectory.Controllers
                 db.SaveChanges();
             }
             catch
-            {
+            { 
             }
 
             return RedirectToAction("Index");
