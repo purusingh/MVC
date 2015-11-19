@@ -12,7 +12,7 @@ namespace ReeDirectory.Controllers
     {
         public ActionResult Lists(int countryId)
         {
-            ReeDbContext db = new ReeDbContext();
+
             IEnumerable<EState> entities = db.States.Where(ent => ent.Country.Id == countryId);
             //if (HttpContext.Request.IsAjaxRequest())
                 return Json(new SelectList(entities, "Id", "Name"), JsonRequestBehavior.AllowGet);
@@ -21,12 +21,12 @@ namespace ReeDirectory.Controllers
 
         protected override void PreCreate()
         {
-            ReeDbContext db = new ReeDbContext();
+     
             ViewBag.Countries = new SelectList(db.Countries.ToList(), "Id", "Name");
         }
 
-        
-        protected override void PreCreate(ReeDbContext db, EState model)
+
+        protected override void PreCreate(EState model)
         {
             model.Country = db.Countries.FirstOrDefault(e=>e.Id == model.Country.Id);
         }

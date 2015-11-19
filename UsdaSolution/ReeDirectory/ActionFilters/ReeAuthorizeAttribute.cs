@@ -19,5 +19,11 @@ namespace ReeDirectory.ActionFilters
             return true;
         }
 
+        public override void OnAuthorization(AuthorizationContext filterContext)
+        {
+            
+            base.OnAuthorization(filterContext);
+        }
+
     }
 }
