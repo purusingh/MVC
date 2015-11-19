@@ -73,6 +73,10 @@ namespace ReeDirectory.Controllers
         public ActionResult Sort(T model)
         {
             IQueryable<E> queriable = db.Set<E>();
+            foreach (string include in model.Includes())
+            {
+                queriable = queriable.Include(include);
+            }
 
             if (!string.IsNullOrEmpty(model.FilterByValue))
                 queriable = queriable.Where(string.Format("{0}.ToString().StartsWith(@0)", model.FilterBy), model.FilterByValue);

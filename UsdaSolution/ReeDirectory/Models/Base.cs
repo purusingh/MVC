@@ -36,6 +36,11 @@ namespace ReeDirectory.Models
             }
         }
 
+        virtual public List<String> Includes()
+        {
+            return new List<string>();
+        }
+
         public SelectList Pages
         {
             get
