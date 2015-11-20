@@ -14,7 +14,7 @@ using System.Data.Entity.Validation;
 
 namespace ReeDirectory.Controllers
 {
-    public abstract class BaseController<T, E> : Controller
+    public abstract class BaseController<T, E> : System.Web.Mvc.Controller
         where E : EBase, new()
         where T : Base<E>, new()
     {
@@ -165,8 +165,14 @@ namespace ReeDirectory.Controllers
         {
             try
             {
-                E entity = db.Set<E>().FirstOrDefault(e => e.Id == iD);
-                return View(entity);
+                PreCreate();
+                IQueryable<E> queriable = db.Set<E>();
+                T model = new T();
+                foreach (string include in model.Includes())
+                {
+                    queriable = queriable.Include(include);
+                }
+                return View(queriable.FirstOrDefault(e => e.Id == iD));
             }
             catch
             {
@@ -177,22 +183,25 @@ namespace ReeDirectory.Controllers
         [HttpPost]
         public ActionResult Edit(int iD, FormCollection collection)
         {
-            if (ModelState.IsValid)
+            try
             {
-                try
-                {
-                    E entity = new E();
-                    UpdateModel(entity);
-                    db.Entry<E>(entity).State = EntityState.Modified;
-                    db.SaveChanges();
-                    return RedirectToAction("Index");
-                }
-                catch
-                {
-                    ModelState.AddModelError("Error", "Something went wrong.");
-                }
+                E entity = new E();
+                UpdateModel(entity);
+                db.Entry<E>(entity).State = EntityState.Modified;                
+                PreCreate(entity);                
+                db.SaveChanges();
+                return RedirectToAction("Index");
             }
-
+            catch (DbEntityValidationException ex)
+            {
+                foreach (DbEntityValidationResult result in ex.EntityValidationErrors)
+                {
+                    foreach (DbValidationError error in result.ValidationErrors)
+                    {
+                        ModelState.AddModelError(error.PropertyName, error.ErrorMessage);
+                    }
+                }
+            }         
             return View();
         }
         #endregion Actionmethods

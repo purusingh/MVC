@@ -125,14 +125,17 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ActionFilters\AjaxActionFilterAttribute.cs" />
     <Compile Include="ActionFilters\ReeAuthorizeAttribute.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\CityController.cs" />
+    <Compile Include="Controllers\ControllerController.cs" />
     <Compile Include="Controllers\CountryController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\RoleController.cs" />
     <Compile Include="Controllers\StateController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="EntityFM\Context\ReeDbContext.cs" />
@@ -160,9 +163,11 @@
     </Compile>
     <Compile Include="Models\Base.cs" />
     <Compile Include="Models\City.cs" />
+    <Compile Include="Models\Controller.cs" />
     <Compile Include="Models\Country.cs" />
     <Compile Include="Models\Filter\FilterItem.cs" />
     <Compile Include="Models\Filter\FilterItems.cs" />
+    <Compile Include="Models\Role.cs" />
     <Compile Include="Models\State.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -216,6 +221,15 @@
     <Content Include="Views\Shared\User\__Index.cshtml" />
     <Content Include="Views\User\Index.cshtml" />
     <Content Include="Views\User\Create.cshtml" />
+    <Content Include="Views\User\Edit.cshtml" />
+    <Content Include="Views\Role\Index.cshtml" />
+    <Content Include="Views\Role\Create.cshtml" />
+    <Content Include="Views\Role\Edit.cshtml" />
+    <Content Include="Views\Shared\Role\__Index.cshtml" />
+    <Content Include="Views\Shared\Controller\__Index.cshtml" />
+    <Content Include="Views\Controller\Index.cshtml" />
+    <Content Include="Views\Controller\Create.cshtml" />
+    <Content Include="Views\Controller\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

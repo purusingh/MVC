@@ -5,6 +5,10 @@ namespace ReeDirectory.EntityFM.Entities.Security
 {
     public class ERole : EBase
     {
+        public ERole()
+        {
+            RoleControllers = new List<ERoleController>();
+        }
         [Required(ErrorMessage = "Name name is required.")]
         public string Name { get; set; }
 

@@ -3,13 +3,15 @@ using ReeDirectory.EntityFM.Entities.Security;
 
 namespace ReeDirectory.Models
 {
-    public class User: Base<EUser>
+    public class Role : Base<ERole>
     {
+
         public override System.Collections.Generic.List<string> Includes()
         {
             List<string> strings = base.Includes();
-            strings.Add("RoleUsers");
+            strings.Add("RoleControllers");
             return strings;
         }
+
     }
 }

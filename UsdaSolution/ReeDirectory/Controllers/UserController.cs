@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
-using System.Web;
-using System.Web.Mvc;
 using ReeDirectory.EntityFM.Entities.Security;
 using ReeDirectory.Models;
 
@@ -18,6 +16,7 @@ namespace ReeDirectory.Controllers
         protected override void PreCreate(EUser model)
         {
             string selectedRoles = Request.Params["SelectedRoles"];
+            db.Database.ExecuteSqlCommand("delete from ERoleUser where User_Id = @UserId", new SqlParameter("UserId", model.Id));
             if (selectedRoles != null)
             {
                 string[] roleIds = selectedRoles.Split(new char[] { ',' });
@@ -26,6 +25,11 @@ namespace ReeDirectory.Controllers
                     model.RoleUsers.Add(new ERoleUser { Role_Id = Convert.ToInt32(roleId)});
                 }
             }
+        }
+
+        protected override void OnResultExecuted(System.Web.Mvc.ResultExecutedContext filterContext)
+        {
+            base.OnResultExecuted(filterContext);
         }
     }
 }

@@ -1,0 +1,10 @@
+﻿@model ReeDirectory.Models.Controller
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+@Html.Partial("Controller/__Index", Model.Entities)
