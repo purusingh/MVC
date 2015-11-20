@@ -201,7 +201,10 @@ namespace ReeDirectory.Controllers
                         ModelState.AddModelError(error.PropertyName, error.ErrorMessage);
                     }
                 }
-            }         
+            } 
+            catch          
+            {
+            }
             return View();
         }
         #endregion Actionmethods
