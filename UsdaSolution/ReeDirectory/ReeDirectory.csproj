@@ -134,6 +134,7 @@
     <Compile Include="Controllers\CountryController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\StateController.cs" />
+    <Compile Include="Controllers\UserController.cs" />
     <Compile Include="EntityFM\Context\ReeDbContext.cs" />
     <Compile Include="EntityFM\EMaps\MBase.cs" />
     <Compile Include="EntityFM\EMaps\MCity.cs" />
@@ -163,6 +164,7 @@
     <Compile Include="Models\Filter\FilterItem.cs" />
     <Compile Include="Models\Filter\FilterItems.cs" />
     <Compile Include="Models\State.cs" />
+    <Compile Include="Models\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -211,6 +213,9 @@
     <Content Include="Views\State\Index.cshtml">
       <SubType>Code</SubType>
     </Content>
+    <Content Include="Views\Shared\User\__Index.cshtml" />
+    <Content Include="Views\User\Index.cshtml" />
+    <Content Include="Views\User\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

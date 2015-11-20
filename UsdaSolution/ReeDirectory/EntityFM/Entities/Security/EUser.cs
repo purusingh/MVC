@@ -5,6 +5,10 @@ namespace ReeDirectory.EntityFM.Entities.Security
 {
     public class EUser : EBase
     {
+        public EUser()
+        {
+            RoleUsers = new List<ERoleUser>();
+        }
         [Required(ErrorMessage="Login name is required.")]
         public string LoginName { get; set; }
 
