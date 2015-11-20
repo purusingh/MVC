@@ -3,50 +3,63 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.LoginName)
+            <a href="#" onclick="SetSort(this)">
+                @Html.DisplayNameFor(model => model.LoginName)
+            </a>
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.FirstName)
+            <a href="#" onclick="SetSort(this)">
+                @Html.DisplayNameFor(model => model.FirstName)
+            </a>
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.MidName)
+            <a href="#" onclick="SetSort(this)">
+                @Html.DisplayNameFor(model => model.MidName)
+            </a>
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.LastName)
+            <a href="#" onclick="SetSort(this)">
+                @Html.DisplayNameFor(model => model.LastName)
+            </a>
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Email)
+            <a href="#" onclick="SetSort(this)">
+                @Html.DisplayNameFor(model => model.Email)
+            </a>
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Phone)
+            <a href="#" onclick="SetSort(this)">
+                @Html.DisplayNameFor(model => model.Phone)
+            </a>
         </th>
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.LoginName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.FirstName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.MidName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.LastName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Email)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Phone)
-        </td>
-        <td>
-            @Html.Partial("__ActionControl", item)
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.LoginName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FirstName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MidName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LastName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Email)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Phone)
+            </td>
+            <td>
+                @Html.Partial("__ActionControl", item)
+            </td>
+        </tr>
+    }
 
 </table>

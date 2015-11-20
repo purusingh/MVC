@@ -6,11 +6,16 @@
 @section scripts
 {
     <script type="text/javascript">
-        function SetSort(fld) {
+        function SetSort(fld) {            
             var fldName = document.getElementById("SortByName");
             var fldOper = document.getElementById("SortByOperation");
-            if (fldName.value == fld.innerText) {
-                if (fldOper.value == "Asc")
+            var passingValue;
+            if (fld.attributes["filterkey"] != null)
+                var passingValue = fld.attributes["filterkey"].value;
+            else
+                passingValue=fld.innerText.trim()
+            if (fldName.value.trim() == passingValue) {
+                if (fldOper.value.trim() == "Asc")
                     fldOper.value = "Desc";
                 else
                     fldOper.value = "Asc";
@@ -18,7 +23,7 @@
             else {
                 fldOper.value = "Asc";
             }
-            fldName.value = fld.innerText;
+            fldName.value = passingValue;
             document.forms[0].submit();
         }
     </script>

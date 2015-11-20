@@ -1,0 +1,6 @@
+﻿@model IEnumerable<ReeDirectory.EntityFM.Entities.Security.EController>
+
+@foreach (var item in Model)
+{
+    <li>@Html.ActionLink(item.Name, "Index", item.Name)</li>
+}

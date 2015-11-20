@@ -231,6 +231,7 @@
     <Content Include="Views\Controller\Create.cshtml" />
     <Content Include="Views\Controller\Edit.cshtml" />
     <Content Include="Views\Shared\__ActionControl.cshtml" />
+    <Content Include="Views\Controller\Menu.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
