@@ -1,0 +1,16 @@
+﻿@model ReeDirectory.EntityFM.Entities.EBase
+
+@if (((ReeDirectory.EntityFM.ExternalEntity.ESecurity)ViewBag.Security).Edit > 0)
+{
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id })
+}
+
+@if (((ReeDirectory.EntityFM.ExternalEntity.ESecurity)ViewBag.Security).Print > 0)
+{
+    @Html.ActionLink("Details", "Details", new { id = Model.Id })
+}
+
+@if (((ReeDirectory.EntityFM.ExternalEntity.ESecurity)ViewBag.Security).Delete > 0)
+{
+    @Html.ActionLink("Delete", "Delete", new { id = Model.Id })
+}

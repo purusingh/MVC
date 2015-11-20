@@ -4,12 +4,7 @@
     ReeDirectory.EntityFM.ExternalEntity.ESecurity sec = ViewBag.Security as ReeDirectory.EntityFM.ExternalEntity.ESecurity;
  
 }
-<p>
-    @if (sec.Add > 0)
-    {
-       @Html.ActionLink("Create New", "Create")
-    }    
-</p>
+
 <table class="table">
     <tr>
         <th>
@@ -36,18 +31,7 @@
             @Html.DisplayFor(modelItem => item.Country.Name)
         </td>
         <td>
-            @if (sec.Edit > 0)
-            {
-                @Html.ActionLink("Edit", "Edit", new { id=item.Id }) 
-            }
-            @if (sec.Print > 0)
-            {
-                @Html.ActionLink("Details", "Details", new { id=item.Id }) 
-            }
-            @if (sec.Delete > 0)
-            {
-            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
-            }
+           @Html.Partial("__ActionControl", item)
         </td>
     </tr>
 }

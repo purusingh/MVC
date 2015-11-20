@@ -1,20 +1,17 @@
 ﻿@model ReeDirectory.Models.User
 
 @{
-    ViewBag.Title = "Index";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "User List";
+    Layout = "~/Views/Shared/__Index.cshtml";
 }
 
-<h2>Index</h2>
 
-@using (Html.BeginForm("Sort", "User"))
-{
-    @Html.DropDownListFor(x => x.FilterBy, Model.FilterColumns)
-    @Html.TextBoxFor(x => x.FilterByValue)
-    @Html.AntiForgeryToken()
-    <input type="submit" />
-    @Html.HiddenFor(x => x.SortByName)
-    @Html.HiddenFor(x => x.SortByOperation)
-    @Html.Partial("User/__Index", Model.Entities)
-    @Html.DropDownListFor(x => x.CurrentPage, Model.Pages, new { @onchange = "this.form.submit();" })
-}
+@Html.DropDownListFor(x => x.FilterBy, Model.FilterColumns)
+@Html.TextBoxFor(x => x.FilterByValue)
+<input type="submit" />
+@Html.HiddenFor(x => x.SortByName)
+@Html.HiddenFor(x => x.SortByOperation)
+@Html.Partial("User/__Index", Model.Entities)
+@Html.DropDownListFor(x => x.CurrentPage, Model.Pages, new { @onchange = "this.form.submit();" })
+
+

@@ -1,5 +1,4 @@
-﻿
-@{
+﻿@{
     ViewBag.Title = "__Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
@@ -25,4 +24,15 @@
     </script>
 }
 
-@RenderBody()
+<p>
+    @if (((ReeDirectory.EntityFM.ExternalEntity.ESecurity)ViewBag.Security).Add > 0)
+    {
+        @Html.ActionLink("Create New", "Create")
+    }
+</p>
+
+@using (Html.BeginForm("Sort", this.Context.Request.Path.Split(new char[] {'/'})[1]))
+{
+    @Html.AntiForgeryToken()    
+    @RenderBody()
+}

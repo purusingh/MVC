@@ -1,10 +1,5 @@
 ﻿@model IEnumerable<ReeDirectory.EntityFM.Entities.ECountry>
 
-<p>
-@if (((ReeDirectory.EntityFM.ExternalEntity.ESecurity)ViewBag.Security).Add > 0) { 
-    @Html.ActionLink("Create New", "Create")
-}
-</p>
 <table class="table">
     <tr>
         <th>
@@ -31,20 +26,7 @@
                 @Html.DisplayFor(modelItem => item.Name)
             </td>
             <td>
-                @if (((ReeDirectory.EntityFM.ExternalEntity.ESecurity) ViewBag.Security).Edit>0)
-                { 
-                    @Html.ActionLink("Edit", "Edit", new { id = item.Id }) 
-                }
-
-                @if (((ReeDirectory.EntityFM.ExternalEntity.ESecurity)ViewBag.Security).Print > 0)
-                { 
-                    @Html.ActionLink("Details", "Details", new { id = item.Id }) 
-                }
-
-                @if (((ReeDirectory.EntityFM.ExternalEntity.ESecurity)ViewBag.Security).Delete > 0)
-                {
-                    @Html.ActionLink("Delete", "Delete", new { id = item.Id })
-                }
+               @Html.Partial("__ActionControl", item)
             </td>
         </tr>
     }

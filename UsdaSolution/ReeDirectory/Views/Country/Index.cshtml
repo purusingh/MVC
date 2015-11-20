@@ -1,26 +1,13 @@
 ﻿@model ReeDirectory.Models.Country
 
 @{
-    ViewBag.Title = "View";
+    ViewBag.Title = "Country List";
     Layout = "~/Views/Shared/__Index.cshtml";
 }
-
-<h2>View</h2>
-
-<div>
-    <h4>Country</h4>
-    <hr />
-    <dl class="dl-horizontal"></dl>
-
-    @using (Html.BeginForm("Sort", "Country"))
-    {
-        @Html.DropDownListFor(x => x.FilterBy, Model.FilterColumns)
-        @Html.TextBoxFor(x => x.FilterByValue)
-        @Html.AntiForgeryToken()
-        <input type="submit" />
-        @Html.HiddenFor(x => x.SortByName)
-        @Html.HiddenFor(x => x.SortByOperation)
-        @Html.Partial("Country/__Index", Model.Entities)
-        @Html.DropDownListFor(x => x.CurrentPage, Model.Pages, new { @onchange = "this.form.submit();" })
-    }
-</div>
+@Html.DropDownListFor(x => x.FilterBy, Model.FilterColumns)
+@Html.TextBoxFor(x => x.FilterByValue)
+<input type="submit" />
+@Html.HiddenFor(x => x.SortByName)
+@Html.HiddenFor(x => x.SortByOperation)
+@Html.Partial("Country/__Index", Model.Entities)
+@Html.DropDownListFor(x => x.CurrentPage, Model.Pages, new { @onchange = "this.form.submit();" })
