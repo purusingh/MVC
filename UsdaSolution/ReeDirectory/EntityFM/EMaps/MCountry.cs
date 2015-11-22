@@ -13,6 +13,6 @@ namespace ReeDirectory.EntityFM.EMaps
             //});
             Property(p => p.Abbrivation).IsRequired().HasMaxLength(15).HasColumnAnnotation("Index", new IndexAnnotation(new IndexAttribute() { IsUnique = true }));
             Property(p => p.Name).IsRequired().HasMaxLength(120);
-        }        
+        }
     }
 }

@@ -28,6 +28,7 @@ namespace ReeDirectory.EntityFM.Context
             cfg.Add(new MRoleController());
             cfg.Add(new MUser());
             cfg.Add(new MRoleUser());
+            cfg.Add(new MEmployee());
         }
 
         public DbSet<ECountry> Countries { get; set; }
@@ -40,5 +41,6 @@ namespace ReeDirectory.EntityFM.Context
 
         public DbSet<EController> Controllers { get; set; }
         public DbSet<ERoleController> RoleControllers { get; set; }
+        public DbSet<EEmployee> Employees { get; set; }
     }
 }

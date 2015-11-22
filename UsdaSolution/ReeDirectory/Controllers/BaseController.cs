@@ -68,11 +68,11 @@ namespace ReeDirectory.Controllers
             model.CurrentPage = 1;
             model.SortByName = "Id";
             model.SortByOperation = "Desc";
-            return Sort(model);
+            return Index(model);
         }        
 
         [HttpPost]
-        public ActionResult Sort(T model)
+        public ActionResult Index(T model)
         {
             IQueryable<E> queriable = db.Set<E>();
             foreach (string include in model.Includes())

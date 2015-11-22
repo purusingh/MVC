@@ -134,6 +134,7 @@
     <Compile Include="Controllers\CityController.cs" />
     <Compile Include="Controllers\ControllerController.cs" />
     <Compile Include="Controllers\CountryController.cs" />
+    <Compile Include="Controllers\EmployeeController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\RoleController.cs" />
     <Compile Include="Controllers\StateController.cs" />
@@ -142,6 +143,7 @@
     <Compile Include="EntityFM\EMaps\MBase.cs" />
     <Compile Include="EntityFM\EMaps\MCity.cs" />
     <Compile Include="EntityFM\EMaps\MCountry.cs" />
+    <Compile Include="EntityFM\EMaps\MEmployee.cs" />
     <Compile Include="EntityFM\EMaps\MState.cs" />
     <Compile Include="EntityFM\EMaps\Security\MController.cs" />
     <Compile Include="EntityFM\EMaps\Security\MRole.cs" />
@@ -151,6 +153,7 @@
     <Compile Include="EntityFM\Entities\EBase.cs" />
     <Compile Include="EntityFM\Entities\ECity.cs" />
     <Compile Include="EntityFM\Entities\ECountry.cs" />
+    <Compile Include="EntityFM\Entities\EEmployee.cs" />
     <Compile Include="EntityFM\Entities\EState.cs" />
     <Compile Include="EntityFM\Entities\Security\EController.cs" />
     <Compile Include="EntityFM\Entities\Security\ERole.cs" />
@@ -165,6 +168,7 @@
     <Compile Include="Models\City.cs" />
     <Compile Include="Models\Controller.cs" />
     <Compile Include="Models\Country.cs" />
+    <Compile Include="Models\Employee.cs" />
     <Compile Include="Models\Filter\FilterItem.cs" />
     <Compile Include="Models\Filter\FilterItems.cs" />
     <Compile Include="Models\Role.cs" />
@@ -233,6 +237,9 @@
     <Content Include="Views\Shared\__ActionControl.cshtml" />
     <Content Include="Views\Controller\Menu.cshtml" />
     <Content Include="Views\State\Edit.cshtml" />
+    <Content Include="Views\Employee\Index.cshtml" />
+    <Content Include="Views\Shared\Employee\__Index.cshtml" />
+    <Content Include="Views\Employee\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

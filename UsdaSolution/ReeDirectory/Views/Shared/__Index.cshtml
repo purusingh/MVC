@@ -36,7 +36,7 @@
     }
 </p>
 
-@using (Html.BeginForm("Sort", this.Context.Request.Path.Split(new char[] {'/'})[1]))
+@using (Html.BeginForm("", this.Context.Request.Path.Split(new char[] {'/'})[1]))
 {
     @Html.AntiForgeryToken()    
     @RenderBody()
