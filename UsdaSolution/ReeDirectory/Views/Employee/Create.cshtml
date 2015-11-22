@@ -1,4 +1,5 @@
-﻿@model ReeDirectory.EntityFM.Entities.EEmployee
+﻿
+@model ReeDirectory.EntityFM.Entities.EEmployee
 
 @{
     ViewBag.Title = "Create";
@@ -80,10 +81,14 @@
     @Html.ActionLink("Back to List", "Index")
 </div>
 
+<div id="dialog">
+    Hi                              -------------------------------------
+</div>
 
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/jqueryui")
     <script type="text/javascript">
         $(function () {
             $.getJSON("../Home/Countries/List", null, function (data) {
@@ -100,6 +105,24 @@
                         options += "<option value='" + state.Value + "'>" + state.Text + "</option>";
                     });
                     $("#statesId").html(options);
+                });
+            });
+            $("#statesId").click(function () {
+                $("<div></div>").dialog({
+                    height: 40,                   
+                    modal: true,
+                    open: function () {
+                        $(this).load("../Home/Countries/List");
+                    },                    
+                    buttons:
+                        {
+                            "close": function () {
+                                $(this).dialog("close");
+                            },
+                            "save": function () {
+                                $(this).closest("form").submit();
+                            }
+                        }
                 });
             });
         });

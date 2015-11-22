@@ -1,12 +1,24 @@
 ﻿@{
     ViewBag.Title = "__Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    string controllername = this.Context.Request.Path.Split(new char[] { '/' })[1];
 }
 
 @section scripts
 {
+@Scripts.Render("~/bundles/jqueryui")
     <script type="text/javascript">
-        function SetSort(fld) {            
+        $("#addDiv").click(function () {
+            $("<div></div>").dialog({
+                modal:true,
+                open: function () {
+                    $(this).load("@controllername" + "/Create");
+                }
+            });
+            return false;
+
+        });
+        function SetSort(fld) {
             var fldName = document.getElementById("SortByName");
             var fldOper = document.getElementById("SortByOperation");
             var passingValue;
@@ -25,6 +37,7 @@
             }
             fldName.value = passingValue;
             document.forms[0].submit();
+            return false;
         }
     </script>
 }
@@ -32,12 +45,23 @@
 <p>
     @if (((ReeDirectory.EntityFM.ExternalEntity.ESecurity)ViewBag.Security).Add > 0)
     {
-        @Html.ActionLink("Create New", "Create")
+        @Html.ActionLink("Create New", "Create", "", new { @id="addDiv"})
     }
 </p>
 
-@using (Html.BeginForm("", this.Context.Request.Path.Split(new char[] {'/'})[1]))
+@using (Ajax.BeginForm("", controllername, new AjaxOptions { HttpMethod = "POST", InsertionMode = InsertionMode.Replace, UpdateTargetId = "updPanel" }))
+{
+    @Html.AntiForgeryToken()
+ 
+    <div id="updPanel">      
+        
+       @RenderBody()
+    </div>
+    
+}
+
+@*@using (Html.BeginForm("", this.Context.Request.Path.Split(new char[] {'/'})[1]))
 {
     @Html.AntiForgeryToken()    
-    @RenderBody()
-}
+    
+}*@

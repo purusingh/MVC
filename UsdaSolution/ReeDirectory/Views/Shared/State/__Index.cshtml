@@ -7,17 +7,17 @@
 <table class="table">
     <tr>
         <th>
-            <a href="#" onclick="SetSort(this)">
+            <a href="#" onclick="return SetSort(this)">
                 @Html.DisplayNameFor(model => model.Abbrivation)
             </a>
         </th>
         <th>
-            <a href="#" onclick="SetSort(this)">
+            <a href="#" onclick="return SetSort(this)">
                 @Html.DisplayNameFor(model => model.Name)
             </a>
         </th>
         <th>
-            <a href="#" onclick="SetSort(this)" filterkey="Country.Name">
+            <a href="#" onclick="return SetSort(this)" filterkey="Country.Name">
                 Country.Name
             </a>
         </th>
