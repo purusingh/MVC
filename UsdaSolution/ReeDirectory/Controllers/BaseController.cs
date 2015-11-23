@@ -100,18 +100,26 @@ namespace ReeDirectory.Controllers
         public ActionResult Create()
         {
             PreCreate();
+            if (HttpContext.Request.IsAjaxRequest())
+                return PartialView("user/__Create");
             return View();
         }        
 
         [HttpPost]
+        [EncyDyc.EncryptedActionAttribute]
         public ActionResult Create(E model)
-        {
+        {            
             try
             {
                 PreCreate(model);
                 db.Entry<E>(model).State = EntityState.Added;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                if (HttpContext.Request.IsAjaxRequest())
+                {
+                    ModelState.AddModelError("saved", "Success");
+                    return PartialView("user/__Create");
+                }
+                return RedirectToAction("");
             }
             catch (DbEntityValidationException ex)
             {
@@ -128,6 +136,7 @@ namespace ReeDirectory.Controllers
         }
 
         [HttpGet]
+        [EncyDyc.EncryptedActionAttribute]
         public ActionResult Delete(int iD)
         {
             try
@@ -144,6 +153,7 @@ namespace ReeDirectory.Controllers
         }
 
         [HttpPost]
+        [EncyDyc.EncryptedActionAttribute]
         public ActionResult Delete(int iD, FormCollection collection)
         {
             try
@@ -161,6 +171,7 @@ namespace ReeDirectory.Controllers
         }
 
         [HttpGet]
+        [EncyDyc.EncryptedActionAttribute]
         public ActionResult Edit(int iD)
         {
             try
@@ -181,6 +192,7 @@ namespace ReeDirectory.Controllers
         }
 
         [HttpPost]
+        [EncyDyc.EncryptedActionAttribute]
         public ActionResult Edit(int iD, FormCollection collection)
         {
             try
