@@ -106,7 +106,7 @@ namespace ReeDirectory.Controllers
         }        
 
         [HttpPost]
-        [EncyDyc.EncryptedActionAttribute]
+        [EncryptedActionAttribute]
         public ActionResult Create(E model)
         {            
             try
@@ -136,7 +136,7 @@ namespace ReeDirectory.Controllers
         }
 
         [HttpGet]
-        [EncyDyc.EncryptedActionAttribute]
+        [EncryptedActionAttribute]
         public ActionResult Delete(int iD)
         {
             try
@@ -153,7 +153,7 @@ namespace ReeDirectory.Controllers
         }
 
         [HttpPost]
-        [EncyDyc.EncryptedActionAttribute]
+        [EncryptedActionAttribute]
         public ActionResult Delete(int iD, FormCollection collection)
         {
             try
@@ -171,7 +171,7 @@ namespace ReeDirectory.Controllers
         }
 
         [HttpGet]
-        [EncyDyc.EncryptedActionAttribute]
+        [EncryptedActionAttribute]
         public ActionResult Edit(int iD)
         {
             try
@@ -192,7 +192,7 @@ namespace ReeDirectory.Controllers
         }
 
         [HttpPost]
-        [EncyDyc.EncryptedActionAttribute]
+        [EncryptedActionAttribute]
         public ActionResult Edit(int iD, FormCollection collection)
         {
             try

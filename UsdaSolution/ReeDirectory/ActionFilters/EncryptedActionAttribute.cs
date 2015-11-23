@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using ReeDirectory.EncyDyc;
 
-namespace ReeDirectory.EncyDyc
+namespace ReeDirectory.ActionFilters
 {
     [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method)]
     public class EncryptedActionAttribute : ActionFilterAttribute

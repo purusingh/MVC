@@ -140,7 +140,7 @@
     <Compile Include="Controllers\StateController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="EncyDyc\EncryptDecrypt.cs" />
-    <Compile Include="EncyDyc\EncryptedActionAttribute.cs" />
+    <Compile Include="ActionFilters\EncryptedActionAttribute.cs" />
     <Compile Include="EncyDyc\EncryptedActionLink.cs" />
     <Compile Include="EntityFM\Context\ReeDbContext.cs" />
     <Compile Include="EntityFM\EMaps\MBase.cs" />
