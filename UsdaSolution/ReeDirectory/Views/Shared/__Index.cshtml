@@ -11,13 +11,13 @@
 
     <script type="text/javascript">
 
-        //$(function () {
-        //    $('#ajaxshow').hide().ajaxStart(function () {
-        //        $(this).show();
-        //    }).ajaxStop(function () {
-        //        $(this).fadeOut();
-        //    });
-        //});
+        $(function () {
+            $('#ajaxshow').hide().ajaxStart(function () {
+                $(this).show();
+            }).ajaxStop(function () {
+                $(this).fadeOut();
+            });
+        });
 
         $("#addDiv").click(function () {
             $("<div></div>").dialog({
@@ -27,7 +27,26 @@
                 },
                 buttons: {
                     Save: function () {
-                        $(this).find('form').submit();
+                        debugger
+                        thisdiv = $(this);
+                        var saveForm = $(this).find('form');
+                        if (saveForm.length != 0)
+                        {
+                            $.ajax(
+                                {
+                                    method: 'POST',
+                                    url: saveForm.attr('action'),
+                                    data: saveForm.serialize(),
+                                    success: function (result) {
+                                        thisdiv.html(result);
+                                    },
+                                    error: function () {
+                                        alert('dd');
+                                    }
+                                }
+                                );
+                        }
+                        //$(this).find('form').submit();
                     }
                 }
             });

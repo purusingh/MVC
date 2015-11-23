@@ -2,14 +2,15 @@
 
 
 <dsfds>dsfdsfds</dsfds>
-@using (Ajax.BeginForm(new AjaxOptions { UpdateTargetId="createPanel" }))
+@*@using (Ajax.BeginForm(new AjaxOptions { UpdateTargetId="createPanel" }))*@
+@using(Html.BeginForm())
 {    
     @Html.AntiForgeryToken()
     <div id="createPanel">
         <div class="form-horizontal">
             <h4>EUser</h4>
             <hr />
-            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            @Html.ValidationSummary(false, "", new { @class = "text-danger" })
             @Html.HiddenFor(model => model.Id)
 
             <div class="form-group">

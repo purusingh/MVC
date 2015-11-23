@@ -13,5 +13,3 @@
 @Html.HiddenFor(x => x.SortByOperation)
 @Html.Partial("User/__Index", Model.Entities)
 @Html.DropDownListFor(x => x.CurrentPage, Model.Pages, new { @onchange = "this.form.submit();" })
-
-

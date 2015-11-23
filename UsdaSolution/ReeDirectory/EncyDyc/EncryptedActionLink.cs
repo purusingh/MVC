@@ -6,16 +6,17 @@ using System.Web.Routing;
 
 namespace ReeDirectory.EncyDyc
 {
-    public static class EncryptedActionLink
+    public static class EncryptedActionLink 
     {
 
         public static MvcHtmlString EncodedActionLink(this HtmlHelper htmlHelper, string linkText,string actionName, object routeValues, object htmlAttributes)
-        {
+        {           
             return EncodedActionLink(htmlHelper, linkText, actionName, "", routeValues, htmlAttributes);
         }
 
         public static MvcHtmlString EncodedActionLink(this HtmlHelper htmlHelper, string linkText, string actionName, string controllerName, object routeValues, object htmlAttributes)
         {
+            
             string queryString = string.Empty;
             string htmlAttributesString = string.Empty;
             if (routeValues != null)
