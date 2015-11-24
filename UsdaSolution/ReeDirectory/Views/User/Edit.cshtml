@@ -1,4 +1,4 @@
-﻿@model ReeDirectory.EntityFM.Entities.Security.EUser
+﻿@model ReeDirectoryEntityFm.Entities.Security.EUser
 
 @{
     ViewBag.Title = "Edit";
@@ -65,11 +65,11 @@
             </div>
         </div>
 
-        @foreach (ReeDirectory.EntityFM.Entities.Security.ERole role in ViewBag.Roles)
+        @foreach (ReeDirectoryEntityFm.Entities.Security.ERole role in ViewBag.Roles)
         {
             string roleChecked = "";
 
-            ReeDirectory.EntityFM.Entities.Security.ERoleUser roleUser = Model.RoleUsers.Find(ent => ent.Role_Id == role.Id);
+            ReeDirectoryEntityFm.Entities.Security.ERoleUser roleUser = Model.RoleUsers.Find(ent => ent.Role_Id == role.Id);
             if (roleUser != null)
             {
                 roleChecked = "checked='checked'";

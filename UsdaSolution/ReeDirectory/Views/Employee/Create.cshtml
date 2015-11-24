@@ -1,5 +1,5 @@
 ﻿
-@model ReeDirectory.EntityFM.Entities.EEmployee
+@model ReeDirectoryEntityFm.Entities.EEmployee
 
 @{
     ViewBag.Title = "Create";
@@ -67,6 +67,7 @@
 
         <select id="countryId"></select>
         <select id="statesId"></select>
+        <input type="text" class="datepicker" />
 
 
         <div class="form-group">
@@ -124,6 +125,12 @@
                             }
                         }
                 });
+            });
+
+            $(".datepicker").datepicker({
+                showOn: 'both',
+                buttonImage: 'ui-icon-calculator',
+
             });
         });
     </script>

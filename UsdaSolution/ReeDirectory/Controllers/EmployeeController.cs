@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using ReeDirectory.EntityFM.Entities;
+using ReeDirectoryEntityFm.Entities.Employee;
 using ReeDirectory.Models;
 
 namespace ReeDirectory.Controllers

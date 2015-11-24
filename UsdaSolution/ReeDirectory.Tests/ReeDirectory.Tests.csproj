@@ -108,6 +108,14 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\ReeDirectoryEntityFm\ReeDirectoryEntityFm.csproj">
+      <Project>{6bf6779b-ce51-458e-8f91-3becd718e0e9}</Project>
+      <Name>ReeDirectoryEntityFm</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ReeDirectoryUtility\ReeDirectoryUtility.csproj">
+      <Project>{27a72acd-3d6e-4035-a1ef-2840cc8d821e}</Project>
+      <Name>ReeDirectoryUtility</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ReeDirectory\ReeDirectory.csproj">
       <Project>{2BEB0081-A730-4590-84F1-9AC84680B293}</Project>
       <Name>ReeDirectory</Name>

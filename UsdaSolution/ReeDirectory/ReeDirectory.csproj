@@ -139,31 +139,9 @@
     <Compile Include="Controllers\RoleController.cs" />
     <Compile Include="Controllers\StateController.cs" />
     <Compile Include="Controllers\UserController.cs" />
-    <Compile Include="EncyDyc\EncryptDecrypt.cs" />
+    <Compile Include="ReeCache\CacheMgr.cs" />
     <Compile Include="ActionFilters\EncryptedActionAttribute.cs" />
-    <Compile Include="EncyDyc\EncryptedActionLink.cs" />
-    <Compile Include="EntityFM\Context\ReeDbContext.cs" />
-    <Compile Include="EntityFM\EMaps\MBase.cs" />
-    <Compile Include="EntityFM\EMaps\MCity.cs" />
-    <Compile Include="EntityFM\EMaps\MCountry.cs" />
-    <Compile Include="EntityFM\EMaps\MEmployee.cs" />
-    <Compile Include="EntityFM\EMaps\MState.cs" />
-    <Compile Include="EntityFM\EMaps\Security\MController.cs" />
-    <Compile Include="EntityFM\EMaps\Security\MRole.cs" />
-    <Compile Include="EntityFM\EMaps\Security\MRoleController.cs" />
-    <Compile Include="EntityFM\EMaps\Security\MRoleUser.cs" />
-    <Compile Include="EntityFM\EMaps\Security\MUser.cs" />
-    <Compile Include="EntityFM\Entities\EBase.cs" />
-    <Compile Include="EntityFM\Entities\ECity.cs" />
-    <Compile Include="EntityFM\Entities\ECountry.cs" />
-    <Compile Include="EntityFM\Entities\EEmployee.cs" />
-    <Compile Include="EntityFM\Entities\EState.cs" />
-    <Compile Include="EntityFM\Entities\Security\EController.cs" />
-    <Compile Include="EntityFM\Entities\Security\ERole.cs" />
-    <Compile Include="EntityFM\Entities\Security\ERoleController.cs" />
-    <Compile Include="EntityFM\Entities\Security\EUser.cs" />
-    <Compile Include="EntityFM\Entities\Security\ERoleUser.cs" />
-    <Compile Include="EntityFM\ExternalEntity\ESecurity.cs" />
+    <Compile Include="ReeHtmlHelper\EncryptedActionLink.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -305,6 +283,16 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="SqlScripts\Sql.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ReeDirectoryEntityFm\ReeDirectoryEntityFm.csproj">
+      <Project>{6bf6779b-ce51-458e-8f91-3becd718e0e9}</Project>
+      <Name>ReeDirectoryEntityFm</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ReeDirectoryUtility\ReeDirectoryUtility.csproj">
+      <Project>{27a72acd-3d6e-4035-a1ef-2840cc8d821e}</Project>
+      <Name>ReeDirectoryUtility</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

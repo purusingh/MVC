@@ -3,7 +3,7 @@ using System.Web.Mvc;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using ReeDirectory.Controllers;
-using ReeDirectory.EntityFM.ExternalEntity;
+using ReeDirectoryEntityFm.ExternalEntity;
 
 namespace ReeDirectory.Tests.Controllers
 {

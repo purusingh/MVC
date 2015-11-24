@@ -1,4 +1,4 @@
-﻿using ReeDirectory.EntityFM.Entities;
+﻿using ReeDirectoryEntityFm.Entities.Employee;
 
 namespace ReeDirectory.Models
 {

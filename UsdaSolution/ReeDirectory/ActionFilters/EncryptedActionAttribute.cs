@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using ReeDirectory.EncyDyc;
+using ReeDirectory.ReeCache;
+using ReeDirectoryUtility;
 
 namespace ReeDirectory.ActionFilters
 {
@@ -16,7 +17,7 @@ namespace ReeDirectory.ActionFilters
             if (HttpContext.Current.Request.QueryString.Get("q") != null)
             {
                 string encryptedQueryString =HttpUtility.UrlDecode(HttpContext.Current.Request.QueryString.Get("q"));
-                string decrptedString = EncryptDecrypt.Decrypt(encryptedQueryString.ToString());
+                string decrptedString = EncryptDecrypt.Decrypt(encryptedQueryString.ToString(), CacheMgr.GetEncKey());
                 string[] paramsArrs = decrptedString.Split('?');
 
                 for (int i = 0; i < paramsArrs.Length; i++)

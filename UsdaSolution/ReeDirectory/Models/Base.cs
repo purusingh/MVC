@@ -4,7 +4,7 @@ using System.Linq;
 using System.Reflection;
 using System.Web;
 using System.Web.Mvc;
-using ReeDirectory.EntityFM.Entities;
+using ReeDirectoryEntityFm.Entities.Base;
 
 namespace ReeDirectory.Models
 {

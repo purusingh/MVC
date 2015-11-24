@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using ReeDirectory.EntityFM.Entities.Security;
+using ReeDirectoryEntityFm.Entities.Security;
 
 namespace ReeDirectory.Models
 {

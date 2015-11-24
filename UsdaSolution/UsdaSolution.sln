@@ -7,6 +7,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReeDirectory", "ReeDirector
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReeDirectory.Tests", "ReeDirectory.Tests\ReeDirectory.Tests.csproj", "{372EAF89-6026-4435-AE11-ABAA4E5D3770}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReeDirectoryEntityFm", "ReeDirectoryEntityFm\ReeDirectoryEntityFm.csproj", "{6BF6779B-CE51-458E-8F91-3BECD718E0E9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReeDirectoryUtility", "ReeDirectoryUtility\ReeDirectoryUtility.csproj", "{27A72ACD-3D6E-4035-A1EF-2840CC8D821E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +25,14 @@ Global
 		{372EAF89-6026-4435-AE11-ABAA4E5D3770}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{372EAF89-6026-4435-AE11-ABAA4E5D3770}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{372EAF89-6026-4435-AE11-ABAA4E5D3770}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6BF6779B-CE51-458E-8F91-3BECD718E0E9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6BF6779B-CE51-458E-8F91-3BECD718E0E9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6BF6779B-CE51-458E-8F91-3BECD718E0E9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6BF6779B-CE51-458E-8F91-3BECD718E0E9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{27A72ACD-3D6E-4035-A1EF-2840CC8D821E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{27A72ACD-3D6E-4035-A1EF-2840CC8D821E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{27A72ACD-3D6E-4035-A1EF-2840CC8D821E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{27A72ACD-3D6E-4035-A1EF-2840CC8D821E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

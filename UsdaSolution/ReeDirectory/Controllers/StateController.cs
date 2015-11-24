@@ -2,8 +2,8 @@
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using ReeDirectory.EntityFM.Context;
-using ReeDirectory.EntityFM.Entities;
+using ReeDirectoryEntityFm.Contexts;
+using ReeDirectoryEntityFm.Entities.General;
 using ReeDirectory.Models;
 
 namespace ReeDirectory.Controllers

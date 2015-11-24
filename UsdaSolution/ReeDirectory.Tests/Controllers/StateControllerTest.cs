@@ -7,7 +7,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using ReeDirectory;
 using ReeDirectory.Controllers;
-using ReeDirectory.EntityFM.ExternalEntity;
+using ReeDirectoryEntityFm.ExternalEntity;
 
 
 namespace ReeDirectory.Tests.Controllers

@@ -1,6 +1,6 @@
 ﻿using System.Web.Mvc;
 using System.Linq;
-using ReeDirectory.EntityFM.Entities.Security;
+using ReeDirectoryEntityFm.Entities.Security;
 
 namespace ReeDirectory.Controllers
 {

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Reflection;
-using ReeDirectory.EntityFM.Entities.Security;
+using ReeDirectoryEntityFm.Entities.Security;
 using ReeDirectory.Models;
 
 namespace ReeDirectory.Controllers

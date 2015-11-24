@@ -1,4 +1,4 @@
-﻿@model ReeDirectory.EntityFM.Entities.Security.ERole
+﻿@model ReeDirectoryEntityFm.Entities.Security.ERole
 
 @{
     ViewBag.Title = "Edit";
@@ -43,14 +43,14 @@
                 <th>Print</th>
             </tr>
 
-            @foreach (ReeDirectory.EntityFM.Entities.Security.EController controller in ViewBag.Controllers)
+            @foreach (ReeDirectoryEntityFm.Entities.Security.EController controller in ViewBag.Controllers)
             {
                 string addChecked = "";
                 string editChecked = "";
                 string deleteChecked = "";
                 string printCheck = "";
                 
-                ReeDirectory.EntityFM.Entities.Security.ERoleController rolecontroller = Model.RoleControllers.Find(ent => ent.Controller_Id == controller.Id);
+                ReeDirectoryEntityFm.Entities.Security.ERoleController rolecontroller = Model.RoleControllers.Find(ent => ent.Controller_Id == controller.Id);
                 if (rolecontroller != null)
                 {
                     if (rolecontroller.Add > 0)

@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Web.Mvc;
-using ReeDirectory.EntityFM.Entities;
+using ReeDirectoryEntityFm.Entities.General;
 using ReeDirectory.Models.Filter;
 
 

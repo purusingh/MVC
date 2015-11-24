@@ -1,14 +1,14 @@
 ﻿using System.Web.Mvc;
 using System.Linq;
 using ReeDirectory.Models;
-using ReeDirectory.EntityFM.Entities;
-using ReeDirectory.EntityFM.Context;
+using ReeDirectoryEntityFm.Entities.Base;
+using ReeDirectoryEntityFm.Contexts;
 using System.Linq.Dynamic;
 using System.Data.Entity;
 using ReeDirectory.ActionFilters;
-using ReeDirectory.EntityFM.Entities.Security;
+using ReeDirectoryEntityFm.Entities.Security;
 using System.Collections.Generic;
-using ReeDirectory.EntityFM.ExternalEntity;
+using ReeDirectoryEntityFm.ExternalEntity;
 using System.Data.SqlClient;
 using System.Data.Entity.Validation;
 
