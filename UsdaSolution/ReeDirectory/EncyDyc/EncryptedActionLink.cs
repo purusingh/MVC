@@ -61,7 +61,7 @@ namespace ReeDirectory.EncyDyc
             }
             if (queryString != string.Empty)
             {
-                ancor.Append("?q=" + EncryptDecrypt.Encrypt(queryString));
+                ancor.Append("?q=" + HttpUtility.HtmlEncode(EncryptDecrypt.Encrypt(queryString)));
             }
             ancor.Append("'");
             ancor.Append(">");

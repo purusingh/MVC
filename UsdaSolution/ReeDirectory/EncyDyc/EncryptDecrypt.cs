@@ -16,37 +16,89 @@ namespace ReeDirectory.EncyDyc
                 HttpContext.Current.Cache[key] = WebConfigurationManager.AppSettings["getEncKey"].ToString();
             return HttpContext.Current.Cache[key].ToString();
         }
-        public static string Encrypt(string plainText)
+        #region members
+
+        private const string DEFAULT_KEY = "#kl?+@<z";
+
+        #endregion
+
+        public static string Encrypt(string stringToEncrypt)
         {
-            //string key = "jdsg432387#";
             string key = GetEncKey();
-            byte[] EncryptKey = { };
-            byte[] IV = { 55, 34, 87, 64, 87, 195, 54, 21 };
-            EncryptKey = System.Text.Encoding.UTF8.GetBytes(key.Substring(0, 8));
             DESCryptoServiceProvider des = new DESCryptoServiceProvider();
-            byte[] inputByte = Encoding.UTF8.GetBytes(plainText);
-            MemoryStream mStream = new MemoryStream();
-            CryptoStream cStream = new CryptoStream(mStream, des.CreateEncryptor(EncryptKey, IV), CryptoStreamMode.Write);
-            cStream.Write(inputByte, 0, inputByte.Length);
-            cStream.FlushFinalBlock();
-            return Convert.ToBase64String(mStream.ToArray());
+            MemoryStream memoryStream = new MemoryStream();
+            CryptoStream cryptoStream;
+
+            // Check whether the key is valid, otherwise make it valid
+            CheckKey(ref key);
+
+            des.Key = HashKey(key, des.KeySize / 8);
+            des.IV = HashKey(key, des.KeySize / 8);
+            byte[] inputBytes = Encoding.UTF8.GetBytes(stringToEncrypt);
+
+            cryptoStream = new CryptoStream(memoryStream, des.CreateEncryptor(), CryptoStreamMode.Write);
+            cryptoStream.Write(inputBytes, 0, inputBytes.Length);
+            cryptoStream.FlushFinalBlock();
+
+            return Convert.ToBase64String(memoryStream.ToArray());
         }
-        public static string Decrypt(string encryptedText)
+
+        public static string Decrypt(string stringToDecrypt)
         {
-
-            byte[] DecryptKey = { };
-            byte[] IV = { 55, 34, 87, 64, 87, 195, 54, 21 };
-            byte[] inputByte = new byte[encryptedText.Length];
-
-            DecryptKey = System.Text.Encoding.UTF8.GetBytes(GetEncKey().Substring(0, 8));
             DESCryptoServiceProvider des = new DESCryptoServiceProvider();
-            inputByte = Convert.FromBase64String(encryptedText);
-            MemoryStream ms = new MemoryStream();
-            CryptoStream cs = new CryptoStream(ms, des.CreateDecryptor(DecryptKey, IV), CryptoStreamMode.Write);
-            cs.Write(inputByte, 0, inputByte.Length);
-            cs.FlushFinalBlock();
-            System.Text.Encoding encoding = System.Text.Encoding.UTF8;
-            return encoding.GetString(ms.ToArray());
+            MemoryStream memoryStream = new MemoryStream();
+            CryptoStream cryptoStream;
+
+            string key = GetEncKey();
+            // Check whether the key is valid, otherwise make it valid
+            CheckKey(ref key);
+
+            des.Key = HashKey(key, des.KeySize / 8);
+            des.IV = HashKey(key, des.KeySize / 8);
+            byte[] inputBytes = Convert.FromBase64String(stringToDecrypt);
+
+            cryptoStream = new CryptoStream(memoryStream, des.CreateDecryptor(), CryptoStreamMode.Write);
+            cryptoStream.Write(inputBytes, 0, inputBytes.Length);
+            cryptoStream.FlushFinalBlock();
+
+            Encoding encoding = Encoding.UTF8;
+            return encoding.GetString(memoryStream.ToArray());
+        }
+
+        /// <summary>
+        /// Make sure the used key has a length of exact eight characters.
+        /// </summary>
+        /// <param name="keyToCheck">Key being checked.</param>
+        private static void CheckKey(ref string keyToCheck)
+        {
+            keyToCheck = keyToCheck.Length > 8 ? keyToCheck.Substring(0, 8) : keyToCheck;
+            if (keyToCheck.Length < 8)
+            {
+                for (int i = keyToCheck.Length; i < 8; i++)
+                {
+                    keyToCheck += DEFAULT_KEY[i];
+                }
+            }
+        }
+
+        /// <summary>
+        /// Hash a key.
+        /// </summary>
+        /// <param name="key">Key being hashed.</param>
+        /// <param name="length">Length of the output.</param>
+        /// <returns></returns>
+        private static byte[] HashKey(string key, int length)
+        {
+            SHA1CryptoServiceProvider sha1 = new SHA1CryptoServiceProvider();
+
+            // Hash the key
+            byte[] keyBytes = Encoding.UTF8.GetBytes(key);
+            byte[] hash = sha1.ComputeHash(keyBytes);
+
+            // Truncate hash
+            byte[] truncatedHash = new byte[length];
+            Array.Copy(hash, 0, truncatedHash, 0, length);
+            return truncatedHash;
         }
     }
 }

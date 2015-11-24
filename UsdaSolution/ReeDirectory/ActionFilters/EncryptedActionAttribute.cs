@@ -15,7 +15,7 @@ namespace ReeDirectory.ActionFilters
             Dictionary<string, object> decryptedParameters = new Dictionary<string, object>();
             if (HttpContext.Current.Request.QueryString.Get("q") != null)
             {
-                string encryptedQueryString = HttpContext.Current.Request.QueryString.Get("q");
+                string encryptedQueryString =HttpUtility.UrlDecode(HttpContext.Current.Request.QueryString.Get("q"));
                 string decrptedString = EncryptDecrypt.Decrypt(encryptedQueryString.ToString());
                 string[] paramsArrs = decrptedString.Split('?');
 

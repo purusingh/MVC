@@ -116,7 +116,9 @@ namespace ReeDirectory.Controllers
                 db.SaveChanges();
                 if (HttpContext.Request.IsAjaxRequest())
                 {
-                    ModelState.Clear();
+                    if (ModelState.ContainsKey("{key}"))
+                        ModelState["{key}"].Errors.Clear();
+
                     ModelState.AddModelError("saved", "Success");
                     PreCreate();
                     return PartialView("user/__Create");
