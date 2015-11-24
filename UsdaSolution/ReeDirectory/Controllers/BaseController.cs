@@ -11,6 +11,9 @@ using System.Collections.Generic;
 using ReeDirectoryEntityFm.ExternalEntity;
 using System.Data.SqlClient;
 using System.Data.Entity.Validation;
+using System.Reflection;
+using System.IO;
+using Microsoft.Reporting.WebForms;
 
 namespace ReeDirectory.Controllers
 {
@@ -223,6 +226,22 @@ namespace ReeDirectory.Controllers
             }
             return View();
         }
+
+        [HttpGet]
+        [EncryptedActionAttribute]
+        public ActionResult Print(int iD)
+        {
+
+            Assembly assembly = Assembly.Load("D:/Git/UsdaSolution/ReeDirectory/bin/ReeDirectoryEntityFm.dll");
+            Stream stream = assembly.GetManifestResourceStream("ReeDirectoryEntityFm.Reports.OneItem.rdlc");
+            LocalReport report = new LocalReport();
+            report.LoadReportDefinition(stream);
+            report.DataSources.Add(new ReportDataSource("DsOneItem",db.Set<E>().FirstOrDefault(ent=>ent.Id==iD)));
+
+            HttpContext.Response.BinaryWrite(report.Render("PDF"));
+            return null;
+        }
+ 
         #endregion Actionmethods
     }
 }

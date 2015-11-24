@@ -11,7 +11,7 @@
 
 @if (((ReeDirectoryEntityFm.ExternalEntity.ESecurity)ViewBag.Security).Print > 0)
 {
-    @Html.EncodedActionLink("Details", "Details", new { id = Model.Id }, null)
+    @Html.EncodedActionLink("Print", "Print", new { id = Model.Id }, null)
 }
 
 @if (((ReeDirectoryEntityFm.ExternalEntity.ESecurity)ViewBag.Security).Delete > 0)
