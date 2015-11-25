@@ -6,7 +6,7 @@
 
 @if (((ReeDirectoryEntityFm.ExternalEntity.ESecurity)ViewBag.Security).Edit > 0)
 {
-    @Html.EncodedActionLink("Edit", "Edit", new { id = Model.Id }, null)
+    @Html.EncodedActionLink("Edit", "Edit", new { id = Model.Id }, new { @class="editDiv"})
 }
 
 @if (((ReeDirectoryEntityFm.ExternalEntity.ESecurity)ViewBag.Security).Print > 0)

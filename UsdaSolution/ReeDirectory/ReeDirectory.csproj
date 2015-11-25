@@ -244,7 +244,6 @@
     <Content Include="Scripts\jquery-1.10.2.min.map" />
     <Content Include="Views\Shared\Country\__Index.cshtml" />
     <Content Include="Views\Country\Index.cshtml" />
-    <Content Include="Views\Country\Create.cshtml" />
     <Content Include="Views\Country\Edit.cshtml" />
     <Content Include="Views\Shared\State\__Index.cshtml" />
     <Content Include="Views\Shared\__Index.cshtml" />
@@ -254,7 +253,6 @@
     </Content>
     <Content Include="Views\Shared\User\__Index.cshtml" />
     <Content Include="Views\User\Index.cshtml" />
-    <Content Include="Views\User\Create.cshtml" />
     <Content Include="Views\User\Edit.cshtml" />
     <Content Include="Views\Role\Index.cshtml" />
     <Content Include="Views\Role\Create.cshtml" />
@@ -274,6 +272,8 @@
       <SubType>Code</SubType>
     </Content>
     <Content Include="Views\Shared\User\__Create.cshtml" />
+    <Content Include="Views\Shared\Country\__Create.cshtml" />
+    <Content Include="Views\Shared\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

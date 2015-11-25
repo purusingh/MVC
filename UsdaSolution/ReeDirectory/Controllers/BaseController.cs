@@ -107,7 +107,7 @@ namespace ReeDirectory.Controllers
         {
             PreCreate();
             if (HttpContext.Request.IsAjaxRequest())
-                return PartialView("user/__Create");
+                return PartialView(string.Format("{0}/__Create", this.ControllerContext.RouteData.Values["controller"]));
             return View();
         }        
 
