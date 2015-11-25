@@ -130,6 +130,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ActionFilters\AjaxActionFilterAttribute.cs" />
+    <Compile Include="ActionFilters\MultipleButtonAttribute.cs" />
     <Compile Include="ActionFilters\ReeAuthorizeAttribute.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />

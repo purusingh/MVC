@@ -74,7 +74,9 @@ namespace ReeDirectory.Controllers
             return Index(model);
         }        
 
+        
         [HttpPost]
+        //[MultipleButton(Name = "action", Argument = "Index")]
         public ActionResult Index(T model)
         {
             IQueryable<E> queriable = db.Set<E>();
@@ -95,6 +97,7 @@ namespace ReeDirectory.Controllers
                 model.CurrentPage = 1;
 
             model.Entities = queriable.Skip(model.CurrentPage * model.NoOfRecord - model.NoOfRecord).Take(model.NoOfRecord).ToList();
+
             ViewBag.Security = Security;
             return View("Index", model);
         }
@@ -231,25 +234,64 @@ namespace ReeDirectory.Controllers
         [EncryptedActionAttribute]
         public FileStreamResult Print(int iD)
         {
+            T model = new T();
+            model.Entities = db.Set<E>().Where(ent=>ent.Id==iD).ToList();
+
+            return PreparePrint(model);
+        }
+
+        [HttpPost]
+        //[MultipleButton(Name = "action",Argument="Print")]
+        public FileStreamResult Print(T model)
+        {
+            IQueryable<E> queriable = db.Set<E>();
+            foreach (string include in model.Includes())
+            {
+                queriable = queriable.Include(include);
+            }
+
+            if (!string.IsNullOrEmpty(model.FilterByValue))
+                queriable = queriable.Where(string.Format("{0}.ToString().StartsWith(@0)", model.FilterBy), model.FilterByValue);           
+
+            if (!string.IsNullOrEmpty(model.SortByName))
+                queriable = queriable.OrderBy(string.Format("{0} {1}", model.SortByName, model.SortByOperation));
+
+            if (model.CurrentPage < 1) //When there is no record
+                model.CurrentPage = 1;
+            model.Entities = queriable.Skip(model.CurrentPage * model.NoOfRecord - model.NoOfRecord).Take(model.NoOfRecord).ToList();
+            return PreparePrint(model);
+        }
+
+        [HttpGet]
+        public FileStreamResult PrintAll()
+        {
+            T model = new T();
+            IQueryable<E> queriable = db.Set<E>();
+            foreach (string include in model.Includes())
+            {
+                queriable = queriable.Include(include);
+            }
+            model.Entities = queriable.ToList();
+            return PreparePrint(model);
+        }
+
+        private FileStreamResult PreparePrint(T model)
+        {
             Warning[] warnings;
             string[] streamids;
             string mimeType;
             string encoding;
             string filenameExtension;
-
-
-            //Assembly assembly = Assembly.Load("D:/Git/UsdaSolution/ReeDirectory/bin/ReeDirectoryEntityFm.dll");
-            //Stream stream = assembly.GetManifestResourceStream("ReeDirectoryEntityFm.Reports.OneItem.rdlc");
+            
             LocalReport report = new LocalReport();
-            //report.LoadReportDefinition(stream);
             report.ReportPath = "Reports/OneItem.rdlc";
-            report.DataSources.Add(new ReportDataSource("DsOneItem",db.Set<E>().Where(ent=>ent.Id==iD).ToList()));
+            report.DataSources.Add(new ReportDataSource("DsOneItem", model.Entities));
 
-            byte[] bytes = report.Render("PDF", null, out mimeType, out encoding, out filenameExtension,    out streamids, out warnings);
+            byte[] bytes = report.Render("PDF", null, out mimeType, out encoding, out filenameExtension, out streamids, out warnings);
 
             return new FileStreamResult(new MemoryStream(bytes), "application/pdf");
         }
- 
+
         #endregion Actionmethods
     }
 }

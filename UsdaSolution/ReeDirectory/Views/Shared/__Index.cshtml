@@ -71,7 +71,15 @@
                 fldOper.value = "Asc";
             }
             fldName.value = passingValue;
+            document.forms[0].submit();                        
+        }
+        function print()
+        {
+            var form = document.forms[0];
+            var url = form.action;
+            form.action += "/Print";
             document.forms[0].submit();
+            form.action = url;
             return false;
         }
     </script>
@@ -90,6 +98,7 @@
 {
     @Html.AntiForgeryToken()
  
+    @Html.ActionLink("Print All", "PrintAll");
     <div id="updPanel">              
        @RenderBody()
     </div>

@@ -32,7 +32,9 @@
                 @Html.DisplayNameFor(model => model.Phone)
             </a>
         </th>
-        <th></th>
+        <th>
+            <input type="submit" onclick="return print();" />
+        </th>
     </tr>
 
     @foreach (var item in Model)
