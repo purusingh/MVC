@@ -53,15 +53,19 @@
 
         });
 
-        $(".editDiv").click(function () {
-            $("<div></div>").dialog({
-                modal: true,
-                open: function () {
-                    $(this).load($("#editDiv").attr("href"));
-                }
-            });
-            return false;
+        $(".editDiv").each(function () {
+            var thisVal = $(this);            
+            thisVal.click(function () {
+                $("<div></div>").dialog({
+                    modal: true,
+                    open: function () {
+                        $(this).load(thisVal.attr("href"));
+                    }
+                });
+                return false;
+            })
         });
+
 
         function SetSort(fld) {
             var fldName = document.getElementById("SortByName");
