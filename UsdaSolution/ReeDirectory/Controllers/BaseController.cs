@@ -229,17 +229,25 @@ namespace ReeDirectory.Controllers
 
         [HttpGet]
         [EncryptedActionAttribute]
-        public ActionResult Print(int iD)
+        public FileStreamResult Print(int iD)
         {
+            Warning[] warnings;
+            string[] streamids;
+            string mimeType;
+            string encoding;
+            string filenameExtension;
 
-            Assembly assembly = Assembly.Load("D:/Git/UsdaSolution/ReeDirectory/bin/ReeDirectoryEntityFm.dll");
-            Stream stream = assembly.GetManifestResourceStream("ReeDirectoryEntityFm.Reports.OneItem.rdlc");
+
+            //Assembly assembly = Assembly.Load("D:/Git/UsdaSolution/ReeDirectory/bin/ReeDirectoryEntityFm.dll");
+            //Stream stream = assembly.GetManifestResourceStream("ReeDirectoryEntityFm.Reports.OneItem.rdlc");
             LocalReport report = new LocalReport();
-            report.LoadReportDefinition(stream);
-            report.DataSources.Add(new ReportDataSource("DsOneItem",db.Set<E>().FirstOrDefault(ent=>ent.Id==iD)));
+            //report.LoadReportDefinition(stream);
+            report.ReportPath = "Reports/OneItem.rdlc";
+            report.DataSources.Add(new ReportDataSource("DsOneItem",db.Set<E>().Where(ent=>ent.Id==iD).ToList()));
 
-            HttpContext.Response.BinaryWrite(report.Render("PDF"));
-            return null;
+            byte[] bytes = report.Render("PDF", null, out mimeType, out encoding, out filenameExtension,    out streamids, out warnings);
+
+            return new FileStreamResult(new MemoryStream(bytes), "application/pdf");
         }
  
         #endregion Actionmethods
