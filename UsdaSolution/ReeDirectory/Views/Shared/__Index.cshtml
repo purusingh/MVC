@@ -60,6 +60,21 @@
                     modal: true,
                     open: function () {
                         $(this).load(thisVal.attr("href"));
+                    },
+                    buttons: {
+                        Save: function () {
+                            thisdiv = $(this);
+                            var saveForm = $(this).find('form');
+                            $.ajax({
+                                method: "POST",
+                                url: saveForm.attr('action'),
+                                data: saveForm.serialize(),
+                                success: function (result) {
+                                    thisdiv.html(result);
+                                    $(".editDiv").closest('form').submit();
+                                }
+                            });
+                        },
                     }
                 });
                 return false;

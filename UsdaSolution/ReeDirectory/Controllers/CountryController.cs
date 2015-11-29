@@ -22,5 +22,9 @@ namespace ReeDirectory.Controllers
             
         }
 
+        protected override string GetReport()
+        {
+                return "TwoItem";
+        }
     }
 }

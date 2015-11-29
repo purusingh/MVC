@@ -193,6 +193,15 @@ namespace ReeDirectory.Controllers
                 {
                     queriable = queriable.Include(include);
                 }
+
+
+                if (HttpContext.Request.IsAjaxRequest())
+                {
+
+                    return PartialView(string.Format("{0}/__Edit",HttpContext.Request.RequestContext.RouteData.Values["controller"]), queriable.FirstOrDefault(e => e.Id == iD));
+                }
+
+
                 return View(queriable.FirstOrDefault(e => e.Id == iD));
             }
             catch
@@ -212,6 +221,11 @@ namespace ReeDirectory.Controllers
                 db.Entry<E>(entity).State = EntityState.Modified;                
                 PreCreate(entity);                
                 db.SaveChanges();
+                if (HttpContext.Request.IsAjaxRequest())
+                {
+
+                    return PartialView(string.Format("{0}/__Edit", HttpContext.Request.RequestContext.RouteData.Values["controller"]), entity);
+                }
                 return RedirectToAction("Index");
             }
             catch (DbEntityValidationException ex)
@@ -275,6 +289,11 @@ namespace ReeDirectory.Controllers
             return PreparePrint(model);
         }
 
+        protected virtual string  GetReport()
+        { 
+            return "OneItem";
+        }
+        
         private FileStreamResult PreparePrint(T model)
         {
             Warning[] warnings;
@@ -284,12 +303,18 @@ namespace ReeDirectory.Controllers
             string filenameExtension;
             
             LocalReport report = new LocalReport();
-            report.ReportPath = "Reports/OneItem.rdlc";
+            report.ReportPath = string.Format("Reports/{0}.rdlc", GetReport());
             report.DataSources.Add(new ReportDataSource("DsOneItem", model.Entities));
 
             byte[] bytes = report.Render("PDF", null, out mimeType, out encoding, out filenameExtension, out streamids, out warnings);
 
-            return new FileStreamResult(new MemoryStream(bytes), "application/pdf");
+            Response.Clear();
+            Response.AddHeader("content-disposition", "attachment; filename=" + "abc.pdf");
+            Response.BinaryWrite(bytes);
+            Response.ContentType = "";
+            Response.End();
+            return null;
+            //return new FileStreamResult(new MemoryStream(bytes), "application/pdf");
         }
 
         #endregion Actionmethods
