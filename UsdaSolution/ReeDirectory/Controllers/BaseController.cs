@@ -14,6 +14,7 @@ using System.Data.Entity.Validation;
 using System.Reflection;
 using System.IO;
 using Microsoft.Reporting.WebForms;
+using Ninject;
 
 namespace ReeDirectory.Controllers
 {
@@ -22,20 +23,21 @@ namespace ReeDirectory.Controllers
         where T : Base<E>, new()
     {
         #region fields
-        protected ReeDbContext db;
+        [Inject]
+        public ReeDbContext db{ get; set;}
         #endregion fileds
 
-        #region Constructors
-        public BaseController()
-        {
-            db = new ReeDbContext();
-        }
-        public BaseController(ReeDbContext db)
-        {
-            this.db = db;
-        }
+        ////#region Constructors
+        //public BaseController()
+        //{
+        //    //db = new ReeDbContext();
+        //}
+        //public BaseController(ReeDbContext db)
+        //{
+        //    this.db = db;
+        //}
 
-        #endregion Constructors
+        ////#endregion Constructors
 
         #region Security
         private ESecurity security;
