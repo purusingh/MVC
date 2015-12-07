@@ -193,6 +193,9 @@ namespace ReeDirectory.Controllers
                 {
                     queriable = queriable.Include(include);
                 }
+                if (HttpContext.Request.IsAjaxRequest())
+                    return PartialView(string.Format("{0}/__Edit", this.ControllerContext.RouteData.Values["controller"]), queriable.FirstOrDefault(e => e.Id == iD));
+
                 return View(queriable.FirstOrDefault(e => e.Id == iD));
             }
             catch
