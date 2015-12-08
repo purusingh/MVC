@@ -13,9 +13,8 @@ namespace ReeDirectory.Controllers
     {
         [AjaxActionFilterAttribute]
         public ActionResult Lists()
-        {
-            ReeDbContext db = new ReeDbContext();
-            IEnumerable<ECountry> countries = db.Countries.OrderBy(ent => ent.Name).ToList();
+        {            
+            IEnumerable<ECountry> countries = db.SelectAll().OrderBy(ent => ent.Name).ToList();
             if (HttpContext.Request.IsAjaxRequest())
                 return Json(new SelectList(countries, "Id", "Name"), JsonRequestBehavior.AllowGet);
             return View(countries);
