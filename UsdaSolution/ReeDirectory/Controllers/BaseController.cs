@@ -17,12 +17,17 @@ namespace ReeDirectory.Controllers
         where E : EBase, new()
         where T : Base<E>, new()
     {
-        #region Properties
-
-        [Inject]
-        public IReeRepository<E> db { get; set; }
+        #region Properties        
+        protected IReeRepository<E> db { get; set; }
         #endregion Properties
-        
+
+
+        public BaseController(IReeRepository<E> db)
+        { 
+            this.db
+        }
+
+
         #region Security
         private ESecurity security;
         protected ESecurity Security
@@ -37,8 +42,7 @@ namespace ReeDirectory.Controllers
             }
         }
         #endregion security
-
-
+        
         #region VirtualMethods
         protected virtual void PreCreate()
         {
