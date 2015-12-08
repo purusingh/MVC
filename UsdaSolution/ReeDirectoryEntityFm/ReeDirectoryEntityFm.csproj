@@ -71,6 +71,8 @@
     <Compile Include="Entities\Security\EUser.cs" />
     <Compile Include="ExternalEntity\ESecurity.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repositories\IReeRepository.cs" />
+    <Compile Include="Repositories\ReeRepository.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

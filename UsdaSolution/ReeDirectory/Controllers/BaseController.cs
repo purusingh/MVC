@@ -6,12 +6,9 @@ using ReeDirectoryEntityFm.Contexts;
 using System.Linq.Dynamic;
 using System.Data.Entity;
 using ReeDirectory.ActionFilters;
-using ReeDirectoryEntityFm.Entities.Security;
-using System.Collections.Generic;
 using ReeDirectoryEntityFm.ExternalEntity;
 using System.Data.SqlClient;
 using System.Data.Entity.Validation;
-using System.Reflection;
 using System.IO;
 using Microsoft.Reporting.WebForms;
 using Ninject;
@@ -22,22 +19,10 @@ namespace ReeDirectory.Controllers
         where E : EBase, new()
         where T : Base<E>, new()
     {
-        #region fields
+        #region Properties
         [Inject]
         public ReeDbContext db{ get; set;}
-        #endregion fileds
-
-        ////#region Constructors
-        //public BaseController()
-        //{
-        //    //db = new ReeDbContext();
-        //}
-        //public BaseController(ReeDbContext db)
-        //{
-        //    this.db = db;
-        //}
-
-        ////#endregion Constructors
+        #endregion Properties
 
         #region Security
         private ESecurity security;
