@@ -5,12 +5,12 @@ namespace ReeDirectory.App_Start
 {
     using System;
     using System.Web;
-
     using Microsoft.Web.Infrastructure.DynamicModuleHelper;
-
     using Ninject;
     using Ninject.Web.Common;
     using ReeDirectoryEntityFm.Contexts;
+    using ReeDirectoryEntityFm.Entities.Base;
+    using ReeDirectoryEntityFm.Repositories;
 
     public static class NinjectWebCommon 
     {
@@ -64,6 +64,7 @@ namespace ReeDirectory.App_Start
         {
             //DynamicModuleUtility.RegisterModule(typeof(OnePerRequestHttpModule));
             //kernel.Bind<ReeDbContext>().ToSelf();
+            kernel.Bind(typeof(IReeRepository<>)).To(typeof(ReeRepository<>));
         }        
     }
 }

@@ -10,13 +10,13 @@ namespace ReeDirectory.Controllers
     {
         protected override void PreCreate()
         {
-            ViewBag.Roles = db.Roles.ToList();
+            ViewBag.Roles = db.SelectAll();
         }
 
         protected override void PreCreate(EUser model)
         {
             string selectedRoles = Request.Params["SelectedRoles"];
-            db.Database.ExecuteSqlCommand("delete from ERoleUser where User_Id = @UserId", new SqlParameter("UserId", model.Id));
+            db.ExecuteSqlCommand("delete from ERoleUser where User_Id = @UserId", new SqlParameter("UserId", model.Id));
             if (selectedRoles != null)
             {
                 string[] roleIds = selectedRoles.Split(new char[] { ',' });

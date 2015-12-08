@@ -1,10 +1,6 @@
 ﻿using System.Web.Mvc;
-using System.Linq;
 using ReeDirectory.Models;
 using ReeDirectoryEntityFm.Entities.Base;
-using ReeDirectoryEntityFm.Contexts;
-using System.Linq.Dynamic;
-using System.Data.Entity;
 using ReeDirectory.ActionFilters;
 using ReeDirectoryEntityFm.ExternalEntity;
 using System.Data.SqlClient;
@@ -12,6 +8,8 @@ using System.Data.Entity.Validation;
 using System.IO;
 using Microsoft.Reporting.WebForms;
 using Ninject;
+using ReeDirectoryEntityFm.Repositories;
+using System.Linq;
 
 namespace ReeDirectory.Controllers
 {
@@ -20,10 +18,11 @@ namespace ReeDirectory.Controllers
         where T : Base<E>, new()
     {
         #region Properties
-        [Inject]
-        public ReeDbContext db{ get; set;}
-        #endregion Properties
 
+        [Inject]
+        public IReeRepository<E> db { get; set; }
+        #endregion Properties
+        
         #region Security
         private ESecurity security;
         protected ESecurity Security
@@ -31,7 +30,7 @@ namespace ReeDirectory.Controllers
             get
             {
                 if (security == null)
-                    security = db.Database.SqlQuery<ESecurity>("[dbo].[PrPermission] @controllerName, @login", new SqlParameter("controllerName", this.GetType().Name), new SqlParameter("login", HttpContext.User.Identity.Name)).FirstOrDefault();
+                    security = db.SqlQuery<ESecurity>("[dbo].[PrPermission] @controllerName, @login", new SqlParameter("controllerName", this.GetType().Name), new SqlParameter("login", HttpContext.User.Identity.Name)).FirstOrDefault();
                 //if (security == null)
                     //security = new ESecurity { Add = 0, Edit = 0, Delete = 0, Print = 0 };
                 return security;
@@ -59,31 +58,24 @@ namespace ReeDirectory.Controllers
             model.SortByName = "Id";
             model.SortByOperation = "Desc";
             return Index(model);
-        }        
+        }
 
-        
+
+        private void GetData(T model, ref int? totalRecord)
+        {
+            if (model.CurrentPage < 1) //When there is no record
+                model.CurrentPage = 1;
+            model.Entities = db.SelectAll(model.Includes(), model.FilterBy, model.FilterByValue, ref totalRecord, model.SortByName, model.SortByOperation, model.NoOfRecord, model.CurrentPage);
+        }
+
         [HttpPost]
         //[MultipleButton(Name = "action", Argument = "Index")]
         public ActionResult Index(T model)
         {
-            IQueryable<E> queriable = db.Set<E>();
-            foreach (string include in model.Includes())
-            {
-                queriable = queriable.Include(include);
-            }
+            int? totalRecord = 0;
+            GetData(model, ref totalRecord);
+            model.TotolRecords = totalRecord.Value;
 
-            if (!string.IsNullOrEmpty(model.FilterByValue))
-                queriable = queriable.Where(string.Format("{0}.ToString().StartsWith(@0)", model.FilterBy), model.FilterByValue);
-
-            model.TotolRecords = queriable.Count();
-
-            if (!string.IsNullOrEmpty(model.SortByName))
-                queriable = queriable.OrderBy(string.Format("{0} {1}", model.SortByName, model.SortByOperation));
-
-            if (model.CurrentPage < 1) //When there is no record
-                model.CurrentPage = 1;
-
-            model.Entities = queriable.Skip(model.CurrentPage * model.NoOfRecord - model.NoOfRecord).Take(model.NoOfRecord).ToList();
 
             ViewBag.Security = Security;
             return View("Index", model);
@@ -105,8 +97,7 @@ namespace ReeDirectory.Controllers
             try
             {
                 PreCreate(model);
-                db.Entry<E>(model).State = EntityState.Added;
-                db.SaveChanges();
+                db.Insert(model);                
                 if (HttpContext.Request.IsAjaxRequest())
                 {
                     if (ModelState.ContainsKey("{key}"))
@@ -138,9 +129,7 @@ namespace ReeDirectory.Controllers
         {
             try
             {
-                E entity = db.Set<E>().FirstOrDefault(e => e.Id == iD);
-                db.Set<E>().Remove(entity);
-                db.SaveChanges();
+                db.Delete(iD);
             }
             catch
             {
@@ -155,9 +144,7 @@ namespace ReeDirectory.Controllers
         {
             try
             {
-                E entity = db.Set<E>().FirstOrDefault(ent => ent.Id == iD);
-                db.Entry<E>(entity).State = EntityState.Deleted;
-                db.SaveChanges();
+                db.Delete(iD);
                 return RedirectToAction("Index");
             }
             catch
@@ -173,17 +160,11 @@ namespace ReeDirectory.Controllers
         {
             try
             {
-                PreCreate();
-                IQueryable<E> queriable = db.Set<E>();
-                T model = new T();
-                foreach (string include in model.Includes())
-                {
-                    queriable = queriable.Include(include);
-                }
+                PreCreate();                
                 if (HttpContext.Request.IsAjaxRequest())
-                    return PartialView(string.Format("{0}/__Edit", this.ControllerContext.RouteData.Values["controller"]), queriable.FirstOrDefault(e => e.Id == iD));
+                    return PartialView(string.Format("{0}/__Edit", this.ControllerContext.RouteData.Values["controller"]), db.GetByID(iD, new T().Includes()));
 
-                return View(queriable.FirstOrDefault(e => e.Id == iD));
+                return View(db.GetByID(iD, new T().Includes()));
             }
             catch
             {
@@ -199,9 +180,9 @@ namespace ReeDirectory.Controllers
             {
                 E entity = new E();
                 UpdateModel(entity);
-                db.Entry<E>(entity).State = EntityState.Modified;                
+                db.Update(entity);
                 PreCreate(entity);                
-                db.SaveChanges();
+                //db.SaveChanges();
                 return RedirectToAction("Index");
             }
             catch (DbEntityValidationException ex)
@@ -225,7 +206,7 @@ namespace ReeDirectory.Controllers
         public FileStreamResult Print(int iD)
         {
             T model = new T();
-            model.Entities = db.Set<E>().Where(ent=>ent.Id==iD).ToList();
+            model.Entities = db.GetByIDAsList(iD);
 
             return PreparePrint(model);
         }
@@ -234,21 +215,8 @@ namespace ReeDirectory.Controllers
         //[MultipleButton(Name = "action",Argument="Print")]
         public FileStreamResult Print(T model)
         {
-            IQueryable<E> queriable = db.Set<E>();
-            foreach (string include in model.Includes())
-            {
-                queriable = queriable.Include(include);
-            }
-
-            if (!string.IsNullOrEmpty(model.FilterByValue))
-                queriable = queriable.Where(string.Format("{0}.ToString().StartsWith(@0)", model.FilterBy), model.FilterByValue);           
-
-            if (!string.IsNullOrEmpty(model.SortByName))
-                queriable = queriable.OrderBy(string.Format("{0} {1}", model.SortByName, model.SortByOperation));
-
-            if (model.CurrentPage < 1) //When there is no record
-                model.CurrentPage = 1;
-            model.Entities = queriable.Skip(model.CurrentPage * model.NoOfRecord - model.NoOfRecord).Take(model.NoOfRecord).ToList();
+            int? totalRecords = null;
+            GetData(model, ref totalRecords);            
             return PreparePrint(model);
         }
 
@@ -256,12 +224,8 @@ namespace ReeDirectory.Controllers
         public FileStreamResult PrintAll()
         {
             T model = new T();
-            IQueryable<E> queriable = db.Set<E>();
-            foreach (string include in model.Includes())
-            {
-                queriable = queriable.Include(include);
-            }
-            model.Entities = queriable.ToList();
+
+            model.Entities = db.SelectAll(model.Includes());
             return PreparePrint(model);
         }
 

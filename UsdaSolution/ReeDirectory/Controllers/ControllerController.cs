@@ -1,5 +1,4 @@
 ﻿using System.Web.Mvc;
-using System.Linq;
 using ReeDirectoryEntityFm.Entities.Security;
 
 namespace ReeDirectory.Controllers
@@ -8,7 +7,7 @@ namespace ReeDirectory.Controllers
     {        
         public ActionResult Menu()
         {
-            return View(db.Controllers.ToList());
+            return View(db.SelectAll());
         }
     }
 }

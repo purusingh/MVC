@@ -29,12 +29,13 @@ namespace ReeDirectory.Controllers
         }
         protected override void PreCreate()
         {
-            ViewBag.Controllers = db.Controllers.ToList();
+            ViewBag.Controllers = db.SelectAll();
         }
+
         protected override void PreCreate(ERole model)
         {
-            db.Database.ExecuteSqlCommand("delete from ERoleController where Role_Id = @RoleId", new SqlParameter("RoleId",model.Id));
-            List<EController> controllers = db.Controllers.ToList();
+            db.ExecuteSqlCommand("delete from ERoleController where Role_Id = @RoleId", new SqlParameter("RoleId",model.Id));
+            List<EController> controllers = db.GetExternalDbSet<EController>().ToList();
             
             foreach(EController controller in controllers)
             {
