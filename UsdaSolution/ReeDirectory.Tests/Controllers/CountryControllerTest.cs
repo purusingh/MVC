@@ -3,6 +3,7 @@ using System.Configuration;
 using System.Web.Mvc;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
+using Moq.Protected;
 using ReeDirectory.Controllers;
 using ReeDirectoryEntityFm.Entities.General;
 using ReeDirectoryEntityFm.ExternalEntity;
@@ -19,33 +20,49 @@ namespace ReeDirectory.Tests.Controllers
         public void IndexTest0()
         {
             // Arrange
-            var  mockContext = new Mock<ControllerContext>();
-            mockContext.SetupGet(x => x.HttpContext.User.Identity.Name).Returns(user);
-            mockContext.SetupGet(x => x.HttpContext.Request.IsAuthenticated).Returns(true);
+            var  mockHttpContext = new Mock<ControllerContext>();
+            mockHttpContext.SetupGet(x => x.HttpContext.User.Identity.Name).Returns(user);
+            mockHttpContext.SetupGet(x => x.HttpContext.Request.IsAuthenticated).Returns(true);
 
-            var mock = new Mock<IReeRepository<ECountry>>();
-            
-                
-            CountryController controller = new CountryController();
+            //var mockSecurity = new Mock<ESecurity>();
+            var mockRepository = new Mock<IReeRepository<ECountry>>();
+             //var mockSecurity = new Mock<List<ESecurity>>();
+            //mockRepository.Setup(db => db.SqlQuery<ESecurity>(null)).Returns(mockSecurity.Object);
 
-            controller.ControllerContext = mockContext.Object;
+
+            Mock<CountryController> mockController = new Mock<CountryController>();
+            mockController.Object.ControllerContext = mockHttpContext.Object;
+            mockController.Protected().SetupGet<ESecurity>("Security").Returns(new ESecurity{ Add=0});
+            mockController.Protected().SetupGet<IReeRepository<ECountry>>("db").Returns(mockRepository.Object);
+
+            CountryController controller = mockController.Object;
+            //controller.ControllerContext = mockHttpContext.Object;
+
+            //CountryController controller = new CountryController();
+
             // Act
             ViewResult result = controller.Index() as ViewResult;
 
             // Assert
-            //Assert.(result);
+            Assert.IsNotNull(result);
         }
 
+        [TestMethod]
         public void IndexTest1()
         {
             // Arrange
-            var mock = new Mock<ControllerContext>();
-            mock.SetupGet(x => x.HttpContext.User.Identity.Name).Returns(user);
-            mock.SetupGet(x => x.HttpContext.Request.IsAuthenticated).Returns(true);
+            var mockHttpContext = new Mock<ControllerContext>();
+            mockHttpContext.SetupGet(x => x.HttpContext.User.Identity.Name).Returns(user);
+            mockHttpContext.SetupGet(x => x.HttpContext.Request.IsAuthenticated).Returns(true);
+
+            var mockSecurity = new Mock<List<ESecurity>>();
+            var mockRepository = new Mock<IReeRepository<ECountry>>();
+            mockRepository.Setup(db => db.SqlQuery<ESecurity>(null)).Returns(mockSecurity.Object);
 
             CountryController controller = new CountryController();
 
-            controller.ControllerContext = mock.Object;
+            controller.ControllerContext = mockHttpContext.Object;
+            controller.db = mockRepository.Object;            
             // Act
             ViewResult result = controller.Index() as ViewResult;
 

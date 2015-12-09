@@ -18,19 +18,20 @@ namespace ReeDirectory.Controllers
         where T : Base<E>, new()
     {
         #region Properties        
-        protected IReeRepository<E> db { get; set; }
+        [Inject]
+        public virtual IReeRepository<E> db { protected get; set; }
         #endregion Properties
 
-
-        public BaseController(IReeRepository<E> db)
-        { 
-            this.db
-        }
+        //[Inject]
+        //public BaseController(IReeRepository<E> db)
+        //{
+        //    this.db = db;
+        //}
 
 
         #region Security
         private ESecurity security;
-        protected ESecurity Security
+        protected virtual ESecurity Security
         {
             get
             {
@@ -39,7 +40,7 @@ namespace ReeDirectory.Controllers
                 //if (security == null)
                     //security = new ESecurity { Add = 0, Edit = 0, Delete = 0, Print = 0 };
                 return security;
-            }
+            }            
         }
         #endregion security
         
