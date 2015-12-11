@@ -22,13 +22,7 @@ namespace ReeDirectory.Controllers
         public virtual IReeRepository<E> db { protected get; set; }
         #endregion Properties
 
-        //[Inject]
-        //public BaseController(IReeRepository<E> db)
-        //{
-        //    this.db = db;
-        //}
-
-
+      
         #region Security
         private ESecurity security;
         protected virtual ESecurity Security
@@ -37,8 +31,6 @@ namespace ReeDirectory.Controllers
             {
                 if (security == null)
                     security = db.SqlQuery<ESecurity>("[dbo].[PrPermission] @controllerName, @login", new SqlParameter("controllerName", this.GetType().Name), new SqlParameter("login", HttpContext.User.Identity.Name)).FirstOrDefault();
-                //if (security == null)
-                    //security = new ESecurity { Add = 0, Edit = 0, Delete = 0, Print = 0 };
                 return security;
             }            
         }

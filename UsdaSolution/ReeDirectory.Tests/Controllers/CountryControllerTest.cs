@@ -5,9 +5,11 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using Moq.Protected;
 using ReeDirectory.Controllers;
+using ReeDirectory.Models;
 using ReeDirectoryEntityFm.Entities.General;
 using ReeDirectoryEntityFm.ExternalEntity;
 using ReeDirectoryEntityFm.Repositories;
+using System.Linq;
 
 namespace ReeDirectory.Tests.Controllers
 {
@@ -19,80 +21,107 @@ namespace ReeDirectory.Tests.Controllers
         [TestMethod]
         public void IndexTest0()
         {
+
+            List<ECountry> countries = new List<ECountry>{ new ECountry{ Id=11}};
+            List<ESecurity> securities = new List<ESecurity> { new ESecurity { Add = 0 } };
+
+
             // Arrange
             var  mockHttpContext = new Mock<ControllerContext>();
             mockHttpContext.SetupGet(x => x.HttpContext.User.Identity.Name).Returns(user);
             mockHttpContext.SetupGet(x => x.HttpContext.Request.IsAuthenticated).Returns(true);
+            
 
-            //var mockSecurity = new Mock<ESecurity>();
             var mockRepository = new Mock<IReeRepository<ECountry>>();
-             //var mockSecurity = new Mock<List<ESecurity>>();
-            //mockRepository.Setup(db => db.SqlQuery<ESecurity>(null)).Returns(mockSecurity.Object);
+            int? totalRecord = 0;
+            mockRepository.Setup(r => r.SelectAll(It.IsAny<List<string>>(), It.IsAny<string>(), It.IsAny<string>(), ref totalRecord, It.IsAny<string>(), It.IsAny<string>(), It.IsAny<int>(), It.IsAny<int>())).Returns(countries);
+            mockRepository.Setup(x => x.SqlQuery<ESecurity>(It.IsAny<string>(), It.IsAny<object[]>())).Returns(securities);
+
+            List<ESecurity> sec = mockRepository.Object.SqlQuery<ESecurity>("","");
+            CountryController controller = new CountryController();
 
 
-            Mock<CountryController> mockController = new Mock<CountryController>();
-            mockController.Object.ControllerContext = mockHttpContext.Object;
-            mockController.Protected().SetupGet<ESecurity>("Security").Returns(new ESecurity{ Add=0});
-            mockController.Protected().SetupGet<IReeRepository<ECountry>>("db").Returns(mockRepository.Object);
+            controller.ControllerContext = mockHttpContext.Object;
+            controller.db = mockRepository.Object;
+            
 
-            CountryController controller = mockController.Object;
-            //controller.ControllerContext = mockHttpContext.Object;
-
-            //CountryController controller = new CountryController();
-
-            // Act
+            // Act            
             ViewResult result = controller.Index() as ViewResult;
 
             // Assert
-            Assert.IsNotNull(result);
+            Assert.IsNotNull(result, "Error Index is returning null value");
+            Assert.AreEqual(result.ViewName, "Index", "It is returning different view");
+            Assert.AreEqual(result.ViewBag.Security, securities[0], "It is returning different view");
         }
 
         [TestMethod]
         public void IndexTest1()
         {
+            List<ECountry> countries = new List<ECountry> { new ECountry { Id = 11 } };
+            List<ESecurity> securities = new List<ESecurity> { new ESecurity { Add = 0 } };
+
+
             // Arrange
             var mockHttpContext = new Mock<ControllerContext>();
             mockHttpContext.SetupGet(x => x.HttpContext.User.Identity.Name).Returns(user);
             mockHttpContext.SetupGet(x => x.HttpContext.Request.IsAuthenticated).Returns(true);
 
-            var mockSecurity = new Mock<List<ESecurity>>();
+
             var mockRepository = new Mock<IReeRepository<ECountry>>();
-            mockRepository.Setup(db => db.SqlQuery<ESecurity>(null)).Returns(mockSecurity.Object);
+            int? totalRecord = 0;
+            mockRepository.Setup(r => r.SelectAll(It.IsAny<List<string>>(), It.IsAny<string>(), It.IsAny<string>(), ref totalRecord, It.IsAny<string>(), It.IsAny<string>(), It.IsAny<int>(), It.IsAny<int>())).Returns(countries);
+            mockRepository.Setup(x => x.SqlQuery<ESecurity>(It.IsAny<string>(), It.IsAny<object[]>())).Returns(securities);
 
+            List<ESecurity> sec = mockRepository.Object.SqlQuery<ESecurity>("", "");
             CountryController controller = new CountryController();
-
+            
             controller.ControllerContext = mockHttpContext.Object;
-            controller.db = mockRepository.Object;            
-            // Act
-            ViewResult result = controller.Index() as ViewResult;
+            controller.db = mockRepository.Object;
+
+            Country country = new Country();
+
+            // Act            
+            ViewResult result = controller.Index(country) as ViewResult;
 
             // Assert
-            Assert.IsNotNull(result);
+            Assert.IsNotNull(result, "Error Index is returning null value");
+            Assert.AreEqual(result.ViewName, "Index", "It is returning different view");
+            Assert.AreEqual(result.ViewBag.Security, securities[0], "Security is not set");
         }
 
         [TestMethod]
         public void IndexTest2()
         {
-            // Arrange
-            var mock = new Mock<ControllerContext>();
-            mock.SetupGet(x => x.HttpContext.User.Identity.Name).Returns(user);
-            mock.SetupGet(x => x.HttpContext.Request.IsAuthenticated).Returns(true);
+            List<ECountry> countries = new List<ECountry> { new ECountry { Id = 11 }, new ECountry { Name = "ddd" } };
+            List<ESecurity> securities = new List<ESecurity> { new ESecurity { Add = 0 } };
 
+
+            // Arrange
+            var mockHttpContext = new Mock<ControllerContext>();
+            mockHttpContext.SetupGet(x => x.HttpContext.User.Identity.Name).Returns(user);
+            mockHttpContext.SetupGet(x => x.HttpContext.Request.IsAuthenticated).Returns(true);
+
+
+            var mockRepository = new Mock<IReeRepository<ECountry>>();
+            int? totalRecord = 0;
+           // mockRepository.Setup(r => r.SelectAll(It.IsAny<List<string>>(), It.IsAny<string>(), It.IsAny<string>(), ref totalRecord, It.IsAny<string>(), It.IsAny<string>(), It.IsAny<int>(), It.IsAny<int>())).Returns((string filterval) => countries.Where(e => e.Name == filterval).ToList());
+            mockRepository.Setup(x => x.SqlQuery<ESecurity>(It.IsAny<string>(), It.IsAny<object[]>())).Returns(securities);
+
+            List<ESecurity> sec = mockRepository.Object.SqlQuery<ESecurity>("", "");
             CountryController controller = new CountryController();
 
-            controller.ControllerContext = mock.Object;
-            // Act
+
+            controller.ControllerContext = mockHttpContext.Object;
+            controller.db = mockRepository.Object;
+
+            Country country = new Country();            
+            // Act            
             ViewResult result = controller.Index() as ViewResult;
 
-            // Assert            
-            ESecurity actual =result.ViewData["Security"] as ESecurity;
-            ESecurity mustBe =new ESecurity { Add = 1, Edit = 1, Delete = 0, Print = 1 };
-            Assert.IsNotNull(actual, "Controller Permission is not set yet");
-            //Assert.AreEqual(actual.Add,mustBe.Add, "Add is not correct");
-            //Assert.AreEqual(actual.Edit, mustBe.Edit, "Edit is not correct");
-            //Assert.AreEqual(actual.Delete, mustBe.Delete, "Delete is not correct");
-            //Assert.AreEqual(actual.Print, mustBe.Print, "print is not correct");
-            
+            // Assert
+            Assert.IsNotNull(result, "Error Index is returning null value");
+            Assert.AreEqual(result.ViewName, "Index", "It is returning different view");
+            Assert.AreEqual(result.ViewBag.Security, securities[0], "It is returning different view");
                         
         }
 

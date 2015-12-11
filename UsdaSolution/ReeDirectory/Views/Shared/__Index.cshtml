@@ -102,10 +102,10 @@
 
 
 <p>
-    @if (((ReeDirectoryEntityFm.ExternalEntity.ESecurity)ViewBag.Security).Add > 0)
+    @*@if (((ReeDirectoryEntityFm.ExternalEntity.ESecurity)ViewBag.Security).Add > 0)
     {
         @Html.ActionLink("Create New", "Create", "", new { @id="addDiv"})
-    }
+    }*@
 </p>
 
 @using (Ajax.BeginForm("", controllername, new AjaxOptions { HttpMethod = "POST", InsertionMode = InsertionMode.Replace, UpdateTargetId = "updPanel" }))

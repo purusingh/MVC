@@ -4,7 +4,7 @@
 
 @model ReeDirectoryEntityFm.Entities.Base.EBase
 
-@if (((ReeDirectoryEntityFm.ExternalEntity.ESecurity)ViewBag.Security).Edit > 0)
+@*@if (((ReeDirectoryEntityFm.ExternalEntity.ESecurity)ViewBag.Security).Edit > 0)
 {
     @Html.EncodedActionLink("Edit", "Edit", new { id = Model.Id }, new { @class="editDiv"})
 }
@@ -17,4 +17,4 @@
 @if (((ReeDirectoryEntityFm.ExternalEntity.ESecurity)ViewBag.Security).Delete > 0)
 {
     @Html.EncodedActionLink("Delete", "Delete", new { id = Model.Id }, null)
-}
+}*@
