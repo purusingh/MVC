@@ -4,10 +4,10 @@
     ViewBag.Title = "Country List";
     Layout = "~/Views/Shared/__Index.cshtml";
 }
-@*@Html.DropDownListFor(x => x.FilterBy, Model.FilterColumns)
+@Html.DropDownListFor(x => x.FilterBy, Model.FilterColumns)
 @Html.TextBoxFor(x => x.FilterByValue)
 <input type="submit" />
 @Html.HiddenFor(x => x.SortByName)
 @Html.HiddenFor(x => x.SortByOperation)
 @Html.Partial("Country/__Index", Model.Entities)
-@Html.DropDownListFor(x => x.CurrentPage, Model.Pages, new { @onchange = "this.form.submit();" })*@
+@Html.DropDownListFor(x => x.CurrentPage, Model.Pages, new { @onchange = "this.form.submit();" })
