@@ -8,6 +8,7 @@ namespace ReeDirectory.ActionFilters
         {
             if (filterContext.HttpContext.Request.IsAjaxRequest())
             {
+                //if(f)
                 var result = filterContext.Result as ViewResultBase;
                 if (result != null && result.Model != null)
                 { 
