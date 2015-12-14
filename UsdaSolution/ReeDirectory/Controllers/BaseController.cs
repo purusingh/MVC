@@ -111,21 +111,21 @@ namespace ReeDirectory.Controllers
         [HttpPost]
         [EncryptedActionAttribute]
         public ActionResult Create(E model)
-        {            
+        {
             try
             {
                 PreCreate(model);
-                db.Insert(model);                
+                db.Insert(model);
                 if (HttpContext.Request.IsAjaxRequest())
                 {
                     if (ModelState.ContainsKey("{key}"))
                         ModelState["{key}"].Errors.Clear();
-
                     ModelState.AddModelError("saved", "Success");
                     PreCreate();
                     return PartialView(GetPartialVies("Create"));
                 }
-                return RedirectToAction("");
+                else
+                    return RedirectToAction("");
             }            
             catch (DbEntityValidationException ex)
             {
@@ -138,8 +138,14 @@ namespace ReeDirectory.Controllers
                     }
                 }
             }
+
             PreCreate();
-            return View();
+
+            if (HttpContext.Request.IsAjaxRequest())
+                return PartialView(GetPartialVies("Create"));
+            else
+                return View();            
+            
         }
 
         [HttpGet]
