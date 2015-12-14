@@ -21,15 +21,20 @@
 
         $("#addDiv").click(function () {
             $("<div></div>").dialog({
-                modal:true,
+                modal: true,
+                close: function () {
+                    $(this).parent().remove();
+                },
                 open: function () {
                     $(this).load("@controllername" + "/Create");
                 },
-                buttons: {
-                    Save: function () {
+                buttons: [{
+                    text: 'Save',
+                    'class': "ui-button-warning",
+                    click: function () {
                         thisdiv = $(this);
-                        var saveForm = $(this).find('form');
-                        if (saveForm.length != 0)
+                        var saveForm = $(this).find('form');                        
+                        if (saveForm.length != 0 &&  saveForm.valid())
                         {
                             $.ajax(
                                 {
@@ -40,14 +45,14 @@
                                         thisdiv.html(result);
                                     },
                                     error: function () {
-                                        alert('dd');
+                                        alert('Ops! something went wrong');
                                     }
                                 }
                                 );
                         }
-                        //$(this).find('form').submit();
+                       //$(document).find('form').submit();
                     }
-                }
+                }],
             });
             return false;
 
@@ -112,7 +117,7 @@
 {
     @Html.AntiForgeryToken()
  
-    @Html.ActionLink("Print All", "PrintAll");
+    @Html.ActionLink("Print All", "PrintAll", null, new { @class="btn btn-primary" });
     <div id="updPanel">              
        @RenderBody()
     </div>

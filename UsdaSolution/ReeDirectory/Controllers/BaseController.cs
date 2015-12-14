@@ -11,6 +11,7 @@ using Ninject;
 using ReeDirectoryEntityFm.Repositories;
 using System.Linq;
 using System.Collections.Generic;
+using System.Globalization;
 
 namespace ReeDirectory.Controllers
 {
@@ -89,7 +90,23 @@ namespace ReeDirectory.Controllers
             if (HttpContext.Request.IsAjaxRequest())
                 return PartialView(GetPartialVies("Create"));
             return View();
-        }        
+        }
+
+
+        private void ClearModelState()
+        {
+            var modelStateKeys = ModelState.Keys;
+            var formKeys = Request.Form.Keys.Cast<string>();
+            var allKeys = modelStateKeys.Concat(formKeys).Distinct().ToList();
+
+            var culture = CultureInfo.CurrentUICulture;
+
+            foreach (var key in allKeys)
+            {
+                if (ModelState[key] != null)
+                    ModelState[key].Errors.Clear();// = new ModelState { Value = new ValueProviderResult(null, null, culture) };
+            }
+        }
 
         [HttpPost]
         [EncryptedActionAttribute]
@@ -109,10 +126,10 @@ namespace ReeDirectory.Controllers
                     return PartialView(GetPartialVies("Create"));
                 }
                 return RedirectToAction("");
-            }
+            }            
             catch (DbEntityValidationException ex)
             {
- 
+                ClearModelState(); 
                 foreach (DbEntityValidationResult result in ex.EntityValidationErrors)
                 {
                     foreach (DbValidationError error in result.ValidationErrors)
@@ -189,6 +206,7 @@ namespace ReeDirectory.Controllers
             }
             catch (DbEntityValidationException ex)
             {
+                ClearModelState();
                 foreach (DbEntityValidationResult result in ex.EntityValidationErrors)
                 {
                     foreach (DbValidationError error in result.ValidationErrors)
