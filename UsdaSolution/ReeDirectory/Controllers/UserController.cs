@@ -10,7 +10,7 @@ namespace ReeDirectory.Controllers
     {
         protected override void PreCreate()
         {
-            ViewBag.Roles = db.SelectAll();
+            ViewBag.Roles = db.GetExternalDbSet<ERole>().ToList();
         }
 
         protected override void PreCreate(EUser model)
