@@ -10,6 +10,7 @@ using Microsoft.Reporting.WebForms;
 using Ninject;
 using ReeDirectoryEntityFm.Repositories;
 using System.Linq;
+using System.Collections.Generic;
 
 namespace ReeDirectory.Controllers
 {
@@ -57,7 +58,10 @@ namespace ReeDirectory.Controllers
             return Index(model);
         }
 
-
+        private string GetPartialVies(string partialView)
+        {
+            return string.Format("{0}/__{1}", this.ControllerContext.RouteData.Values["controller"], partialView);
+        }
         private void GetData(T model, ref int? totalRecord)
         {
             if (model.CurrentPage < 1) //When there is no record
@@ -72,9 +76,9 @@ namespace ReeDirectory.Controllers
             int? totalRecord = 0;
             GetData(model, ref totalRecord);
             model.TotolRecords = totalRecord.Value;
-
-
             ViewBag.Security = Security;
+            if(HttpContext.Request.IsAjaxRequest())
+                return PartialView(GetPartialVies("index"));
             return View("Index", model);
         }
 
@@ -83,7 +87,7 @@ namespace ReeDirectory.Controllers
         {
             PreCreate();
             if (HttpContext.Request.IsAjaxRequest())
-                return PartialView(string.Format("{0}/__Create", this.ControllerContext.RouteData.Values["controller"]));
+                return PartialView(GetPartialVies("Create"));
             return View();
         }        
 
@@ -102,12 +106,13 @@ namespace ReeDirectory.Controllers
 
                     ModelState.AddModelError("saved", "Success");
                     PreCreate();
-                    return PartialView("user/__Create");
+                    return PartialView(GetPartialVies("Create"));
                 }
                 return RedirectToAction("");
             }
             catch (DbEntityValidationException ex)
             {
+ 
                 foreach (DbEntityValidationResult result in ex.EntityValidationErrors)
                 {
                     foreach (DbValidationError error in result.ValidationErrors)
@@ -159,7 +164,7 @@ namespace ReeDirectory.Controllers
             {
                 PreCreate();                
                 if (HttpContext.Request.IsAjaxRequest())
-                    return PartialView(string.Format("{0}/__Edit", this.ControllerContext.RouteData.Values["controller"]), db.GetByID(iD, new T().Includes()));
+                    return PartialView(GetPartialVies("Edit"), db.GetByID(iD, new T().Includes()));
 
                 return View(db.GetByID(iD, new T().Includes()));
             }
