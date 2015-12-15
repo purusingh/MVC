@@ -11,6 +11,8 @@ using ReeDirectoryEntityFm.EMaps.Employee;
 using ReeDirectoryEntityFm.Entities.General;
 using ReeDirectoryEntityFm.Entities.Security;
 using ReeDirectoryEntityFm.Entities.Employee;
+using ReeDirectoryEntityFm.EMaps.Surveys;
+using ReeDirectoryEntityFm.Entities.Surveys;
 
 
 
@@ -37,6 +39,15 @@ namespace ReeDirectoryEntityFm.Contexts
             cfg.Add(new MUser());
             cfg.Add(new MRoleUser());
             cfg.Add(new MEmployee());
+
+            //Surver
+            cfg.Add(new MSurvey());
+            cfg.Add(new MAnswer());
+            cfg.Add(new MOrganization());
+            cfg.Add(new MSection());
+            cfg.Add(new MQuestion());
+            cfg.Add(new MQuestionType());
+
         }
 
         public DbSet<ECountry> Countries { get; set; }
@@ -50,5 +61,12 @@ namespace ReeDirectoryEntityFm.Contexts
         public DbSet<EController> Controllers { get; set; }
         public DbSet<ERoleController> RoleControllers { get; set; }
         public DbSet<EEmployee> Employees { get; set; }
+
+        public DbSet<EOrganization> Organizations { get; set; }
+        public DbSet<ESurvey> Surveys { get; set; }
+        public DbSet<EQuestion> Questions { get; set; }
+        public DbSet<EQuestionType> QuestionTypes { get; set; }
+        public DbSet<EAnswer> Answers { get; set; }
+
     }
 }
