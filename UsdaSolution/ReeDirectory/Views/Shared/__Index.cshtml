@@ -26,6 +26,7 @@
                     $(this).parent().remove();
                 },
                 open: function () {
+                    alert("/@controllername" + "/Create");
                     $(this).load("@controllername" + "/Create");
                 },
                 buttons: [{
@@ -33,7 +34,7 @@
                     'class': "ui-button-warning",
                     click: function () {
                         thisdiv = $(this);
-                        var saveForm = $(this).find('form');                        
+                        var saveForm = $(this).find('form');
                         if (saveForm.length != 0 &&  saveForm.valid())
                         {
                             $.ajax(
@@ -50,7 +51,7 @@
                                 }
                                 );
                         }
-                       //$(document).find('form').submit();
+                        //$(document).find('form').submit();
                     }
                 }],
             });
@@ -59,11 +60,12 @@
         });
 
         $(".editDiv").each(function () {
-            var thisVal = $(this);            
+            var thisVal = $(this);
             thisVal.click(function () {
                 $("<div></div>").dialog({
                     modal: true,
                     open: function () {
+                        alert(thisVal.attr("href"));
                         $(this).load(thisVal.attr("href"));
                     }
                 });
@@ -90,7 +92,7 @@
                 fldOper.value = "Asc";
             }
             fldName.value = passingValue;
-            document.forms[0].submit();                        
+            document.forms[0].submit();
         }
         function print()
         {

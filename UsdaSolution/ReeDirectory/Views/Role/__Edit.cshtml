@@ -1,12 +1,5 @@
 ﻿@model ReeDirectoryEntityFm.Entities.Security.ERole
 
-@{
-    ViewBag.Title = "Edit";
-    Layout = "~/Views/Shared/_Layout.cshtml";
-}
-
-<h2>Edit</h2>
-
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
@@ -96,7 +89,3 @@
 
     </div>
 }
-
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>

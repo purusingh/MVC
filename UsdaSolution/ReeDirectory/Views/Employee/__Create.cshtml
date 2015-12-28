@@ -1,13 +1,4 @@
-﻿
-@model ReeDirectoryEntityFm.Entities.EEmployee
-
-@{
-    ViewBag.Title = "Create";
-    Layout = "~/Views/Shared/_Layout.cshtml";
-}
-
-<h2>Create</h2>
-
+﻿@model ReeDirectoryEntityFm.Entities.Employee.EEmployee
 
 @using (Html.BeginForm())
 {
@@ -78,13 +69,6 @@
     </div>
 }
 
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
-
-<div id="dialog">
-    Hi                              -------------------------------------
-</div>
 
 
 @section Scripts {

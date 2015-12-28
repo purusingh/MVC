@@ -1,4 +1,5 @@
-﻿using System.Web.Mvc;
+﻿using System;
+using System.Web.Mvc;
 
 namespace ReeDirectory.ActionFilters
 {
@@ -10,8 +11,8 @@ namespace ReeDirectory.ActionFilters
             {
                 //if(f)
                 var result = filterContext.Result as ViewResultBase;
-                if (result != null && result.Model != null)
-                { 
+                if (result != null && result.Model != null && String.IsNullOrEmpty(result.ViewName))
+                {
                     filterContext.Result = new JsonResult
                     {
                         Data = result.Model,

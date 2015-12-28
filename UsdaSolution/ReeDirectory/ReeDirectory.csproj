@@ -152,6 +152,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\NinjectWebCommon.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Areas\Surveys\SurveysAreaRegistration.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\CityController.cs" />
     <Compile Include="Controllers\ControllerController.cs" />
@@ -226,6 +227,7 @@
     <Content Include="Scripts\dotnetreport-helper.js" />
     <Content Include="Scripts\dotnetreport-wizard.js" />
     <Content Include="Scripts\dotnetreport.min.js" />
+    <Content Include="Areas\Surveys\Views\web.config" />
     <None Include="Scripts\jquery-2.1.4.intellisense.js" />
     <Content Include="Scripts\jquery-2.1.4.js" />
     <Content Include="Scripts\jquery-2.1.4.min.js" />
@@ -261,41 +263,47 @@
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
-    <Content Include="Views\Shared\Country\__Index.cshtml" />
+    <Content Include="Views\Country\__Index.cshtml" />
     <Content Include="Views\Country\Index.cshtml" />
-    <Content Include="Views\Country\Edit.cshtml" />
-    <Content Include="Views\Shared\State\__Index.cshtml" />
+    <Content Include="Views\State\__Index.cshtml" />
     <Content Include="Views\Shared\__Index.cshtml" />
-    <Content Include="Views\State\Create.cshtml" />
+    <Content Include="Views\State\__Create.cshtml" />
     <Content Include="Views\State\Index.cshtml">
       <SubType>Code</SubType>
     </Content>
-    <Content Include="Views\Shared\User\__Index.cshtml" />
+    <Content Include="Views\User\__Index.cshtml" />
     <Content Include="Views\User\Index.cshtml" />
-    <Content Include="Views\User\Edit.cshtml" />
+    <Content Include="Views\User\__Edit.cshtml" />
     <Content Include="Views\Role\Index.cshtml" />
-    <Content Include="Views\Role\Create.cshtml" />
-    <Content Include="Views\Role\Edit.cshtml" />
-    <Content Include="Views\Shared\Role\__Index.cshtml" />
-    <Content Include="Views\Shared\Controller\__Index.cshtml" />
+    <Content Include="Views\Role\__Create.cshtml" />
+    <Content Include="Views\Role\__Edit.cshtml" />
+    <Content Include="Views\Role\__Index.cshtml" />
+    <Content Include="Views\Controller\__Index.cshtml" />
     <Content Include="Views\Controller\Index.cshtml" />
-    <Content Include="Views\Controller\Create.cshtml" />
-    <Content Include="Views\Controller\Edit.cshtml" />
+    <Content Include="Views\Controller\__Create.cshtml" />
+    <Content Include="Views\Controller\__Edit.cshtml" />
     <Content Include="Views\Shared\__ActionControl.cshtml" />
     <Content Include="Views\Controller\Menu.cshtml" />
-    <Content Include="Views\State\Edit.cshtml" />
+    <Content Include="Views\State\__Edit.cshtml" />
     <Content Include="Views\Employee\Index.cshtml" />
-    <Content Include="Views\Shared\Employee\__Index.cshtml" />
-    <Content Include="Views\Employee\Create.cshtml" />
+    <Content Include="Views\Employee\__Index.cshtml" />
+    <Content Include="Views\Employee\__Create.cshtml" />
     <Content Include="Views\Shared\_Layout.Report.cshtml">
       <SubType>Code</SubType>
     </Content>
-    <Content Include="Views\Shared\User\__Create.cshtml" />
-    <Content Include="Views\Shared\Country\__Create.cshtml" />
+    <Content Include="Views\User\__Create.cshtml" />
+    <Content Include="Views\Country\__Create.cshtml" />
     <Content Include="Views\Shared\Create.cshtml" />
+    <Content Include="Views\Country\__Edit.cshtml" />
+    <Content Include="Views\Shared\Edit.cshtml">
+      <SubType>Code</SubType>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Areas\Surveys\Controllers\" />
+    <Folder Include="Areas\Surveys\Models\" />
+    <Folder Include="Areas\Surveys\Views\Shared\" />
     <Folder Include="Views\City\" />
   </ItemGroup>
   <ItemGroup>

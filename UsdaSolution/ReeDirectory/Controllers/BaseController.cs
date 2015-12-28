@@ -61,7 +61,7 @@ namespace ReeDirectory.Controllers
 
         private string GetPartialVies(string partialView)
         {
-            return string.Format("{0}/__{1}", this.ControllerContext.RouteData.Values["controller"], partialView);
+            return string.Format("__{1}", this.ControllerContext.RouteData.Values["controller"], partialView);
         }
         private void GetData(T model, ref int? totalRecord)
         {

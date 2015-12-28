@@ -15,8 +15,9 @@ namespace ReeDirectory.Controllers
 
             IEnumerable<EState> entities = db.ReeDbSet.Where(ent => ent.Country.Id == countryId).ToList();
             //if (HttpContext.Request.IsAjaxRequest())
-                return Json(new SelectList(entities, "Id", "Name"), JsonRequestBehavior.AllowGet);
-            return View(entities);
+           //     return Json(new SelectList(entities, "Id", "Name"), JsonRequestBehavior.AllowGet);
+            //return View(entities);
+            return View(new SelectList(entities, "Id", "Name"));
         }
 
         protected override void PreCreate()
