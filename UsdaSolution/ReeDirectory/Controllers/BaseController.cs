@@ -201,14 +201,22 @@ namespace ReeDirectory.Controllers
         [EncryptedActionAttribute]
         public ActionResult Edit(int iD, FormCollection collection)
         {
+            E entity = new E();
             try
-            {
-                E entity = new E();
+            {                
                 UpdateModel(entity);
-                db.Update(entity);
-                PreCreate(entity);                
+                db.Update(entity);                
                 //db.SaveChanges();
-                return RedirectToAction("Index");
+                if (HttpContext.Request.IsAjaxRequest())
+                {
+                    if (ModelState.ContainsKey("{key}"))
+                        ModelState["{key}"].Errors.Clear();
+                    ModelState.AddModelError("saved", "Success");
+                    PreCreate(); PreCreate(entity);                
+                    return PartialView(GetPartialVies("Create"));
+                }
+                else
+                    return RedirectToAction("");
             }
             catch (DbEntityValidationException ex)
             {
@@ -224,7 +232,10 @@ namespace ReeDirectory.Controllers
             catch          
             {
             }
+            PreCreate(entity);                
             return View();
+            
+
         }
 
         [HttpGet]
